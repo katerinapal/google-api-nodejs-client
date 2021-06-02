@@ -1,3 +1,5 @@
+import ext_fs from "fs";
+import ext_assert from "assert";
 /**
  * Copyright 2013 Google Inc. All Rights Reserved.
  *
@@ -16,8 +18,8 @@
 
 'use strict';
 
-var assert = require('assert');
-var fs = require('fs');
+var assert = ext_assert;
+var fs = ext_fs;
 var googleapis = require('../lib/googleapis.js');
 
 describe('Clients', function() {

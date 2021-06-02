@@ -1,3 +1,5 @@
+import ext_nock from "nock";
+import ext_assert from "assert";
 /**
  * Copyright 2013 Google Inc. All Rights Reserved.
  *
@@ -16,9 +18,9 @@
 
 'use strict';
 
-var assert = require('assert');
+var assert = ext_assert;
 var googleapis = require('../lib/googleapis.js');
-var nock = require('nock');
+var nock = ext_nock;
 
 nock.disableNetConnect();
 

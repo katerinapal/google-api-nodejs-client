@@ -1,3 +1,4 @@
+import ext_assert from "assert";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +17,7 @@
 
 'use strict';
 
-var assert = require('assert');
+var assert = ext_assert;
 var googleapis = require('../lib/googleapis.js');
 var google, drive, authClient, OAuth2;
 

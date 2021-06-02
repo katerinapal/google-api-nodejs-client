@@ -1,3 +1,6 @@
+import ext_nock from "nock";
+import ext_fs from "fs";
+import ext_assert from "assert";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,10 +19,10 @@
 
 'use strict';
 
-var assert = require('assert');
-var fs = require('fs');
+var assert = ext_assert;
+var fs = ext_fs;
 var googleapis = require('../lib/googleapis.js');
-var nock = require('nock');
+var nock = ext_nock;
 var google, drive, authClient, OAuth2;
 
 nock.disableNetConnect();

@@ -1,3 +1,9 @@
+import ext_nock from "nock";
+import ext_crypto from "crypto";
+import ext_fs from "fs";
+import ext_querystring from "querystring";
+import ext_assert from "assert";
+import ext_url from "url";
 /**
  * Copyright 2013 Google Inc. All Rights Reserved.
  *
@@ -16,13 +22,13 @@
 
 'use strict';
 
-var url = require('url');
-var assert = require('assert');
-var qs = require('querystring');
-var fs = require('fs');
+var url = ext_url;
+var assert = ext_assert;
+var qs = ext_querystring;
+var fs = ext_fs;
 var googleapis = require('../lib/googleapis.js');
-var crypto = require('crypto');
-var nock = require('nock');
+var crypto = ext_crypto;
+var nock = ext_nock;
 
 nock.disableNetConnect();
 
