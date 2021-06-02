@@ -1,5 +1,15 @@
-import ext_nock from "nock";
-import ext_assert from "assert";
+"use strict";
+
+var _nock = require("nock");
+
+var _nock2 = _interopRequireDefault(_nock);
+
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * Copyright 2013 Google Inc. All Rights Reserved.
  *
@@ -18,18 +28,18 @@ import ext_assert from "assert";
 
 'use strict';
 
-var assert = ext_assert;
+var assert = _assert2.default;
 var googleapis = require('../lib/googleapis.js');
-var nock = ext_nock;
+var nock = _nock2.default;
 
 nock.disableNetConnect();
 
-describe('Compute auth client', function() {
+describe('Compute auth client', function () {
 
-  it('should get an initial access token', function(done) {
+  it('should get an initial access token', function (done) {
     var compute = new googleapis.auth.Compute();
     compute.transporter = {
-      request: function(opts, opt_callback) {
+      request: function request(opts, opt_callback) {
         opt_callback(null, {
           'access_token': 'initial-access-token',
           'token_type': 'Bearer',
@@ -37,40 +47,36 @@ describe('Compute auth client', function() {
         }, {});
       }
     };
-    compute.authorize(function() {
+    compute.authorize(function () {
       assert.equal('initial-access-token', compute.credentials.access_token);
       assert.equal('compute-placeholder', compute.credentials.refresh_token);
       done();
     });
   });
 
-  it('should refresh if access token has expired', function(done) {
-    var scope = nock('http://metadata')
-        .get('/computeMetadata/v1beta1/instance/service-accounts/default/token')
-        .reply(200, { access_token: 'abc123', expires_in: 10000 });
+  it('should refresh if access token has expired', function (done) {
+    var scope = nock('http://metadata').get('/computeMetadata/v1beta1/instance/service-accounts/default/token').reply(200, { access_token: 'abc123', expires_in: 10000 });
     var compute = new googleapis.auth.Compute();
     compute.credentials = {
       access_token: 'initial-access-token',
       refresh_token: 'compute-placeholder',
-      expiry_date: (new Date()).getTime() - 2000
+      expiry_date: new Date().getTime() - 2000
     };
-    compute.request({}, function() {
+    compute.request({}, function () {
       assert.equal(compute.credentials.access_token, 'abc123');
       scope.done();
       done();
     });
   });
 
-  it('should not refresh if access token has expired', function(done) {
-    var scope = nock('http://metadata')
-        .get('/computeMetadata/v1beta1/instance/service-accounts/default/token')
-        .reply(200, { access_token: 'abc123', expires_in: 10000 });
+  it('should not refresh if access token has expired', function (done) {
+    var scope = nock('http://metadata').get('/computeMetadata/v1beta1/instance/service-accounts/default/token').reply(200, { access_token: 'abc123', expires_in: 10000 });
     var compute = new googleapis.auth.Compute();
     compute.credentials = {
       access_token: 'initial-access-token',
       refresh_token: 'compute-placeholder'
     };
-    compute.request({}, function() {
+    compute.request({}, function () {
       assert.equal(compute.credentials.access_token, 'initial-access-token');
       assert.equal(false, scope.isDone());
       nock.cleanAll();

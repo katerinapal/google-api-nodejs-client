@@ -1,5 +1,15 @@
-import ext_nock from "nock";
-import ext_assert from "assert";
+"use strict";
+
+var _nock = require("nock");
+
+var _nock2 = _interopRequireDefault(_nock);
+
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * Copyright 2013 Google Inc. All Rights Reserved.
  *
@@ -18,17 +28,17 @@ import ext_assert from "assert";
 
 'use strict';
 
-var assert = ext_assert;
+var assert = _assert2.default;
 var googleapis = require('../lib/googleapis.js');
-var nock = ext_nock;
+var nock = _nock2.default;
 
 nock.disableNetConnect();
 
-describe('Urlshortener', function() {
+describe('Urlshortener', function () {
 
   function noop() {}
 
-  it('should generate a valid payload for single requests', function() {
+  it('should generate a valid payload for single requests', function () {
     var google = new googleapis.GoogleApis();
     var urlshortener = google.urlshortener('v1');
     var obj = { longUrl: 'http://someurl...' };
@@ -38,7 +48,7 @@ describe('Urlshortener', function() {
     assert.equal(req.method, 'POST');
   });
 
-  it('should generate valid payload if any params are given', function() {
+  it('should generate valid payload if any params are given', function () {
     var google = new googleapis.GoogleApis();
     var urlshortener = google.urlshortener('v1');
     var params = { shortUrl: 'a' };
@@ -47,14 +57,12 @@ describe('Urlshortener', function() {
     assert.equal(req.method, 'GET');
   });
 
-  it('should return a single response object for single requests', function(done) {
+  it('should return a single response object for single requests', function (done) {
     var google = new googleapis.GoogleApis();
-    var scope = nock('https://www.googleapis.com')
-        .post('/urlshortener/v1/url')
-        .replyWithFile(200, __dirname + '/fixtures/urlshort-insert-res.json');
+    var scope = nock('https://www.googleapis.com').post('/urlshortener/v1/url').replyWithFile(200, __dirname + '/fixtures/urlshort-insert-res.json');
     var urlshortener = google.urlshortener('v1');
     var obj = { longUrl: 'http://google.com/' };
-    urlshortener.url.insert({ resource: obj }, function(err, result) {
+    urlshortener.url.insert({ resource: obj }, function (err, result) {
       assert.equal(err, null);
       assert.notEqual(result, null);
       assert.notEqual(result.kind, null);

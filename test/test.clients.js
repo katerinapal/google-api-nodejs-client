@@ -1,5 +1,17 @@
-import ext_fs from "fs";
-import ext_assert from "assert";
+"use strict";
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _fs = require("fs");
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * Copyright 2013 Google Inc. All Rights Reserved.
  *
@@ -18,58 +30,58 @@ import ext_assert from "assert";
 
 'use strict';
 
-var assert = ext_assert;
-var fs = ext_fs;
+var assert = _assert2.default;
+var fs = _fs2.default;
 var googleapis = require('../lib/googleapis.js');
 
-describe('Clients', function() {
+describe('Clients', function () {
 
-  it('should create request helpers according to the resource on discovery API response', function() {
+  it('should create request helpers according to the resource on discovery API response', function () {
     var plus = googleapis.plus('v1');
-    assert.equal(typeof plus.people.get, 'function');
-    assert.equal(typeof plus.activities.search, 'function');
-    assert.equal(typeof plus.comments.list, 'function');
+    assert.equal(_typeof(plus.people.get), 'function');
+    assert.equal(_typeof(plus.activities.search), 'function');
+    assert.equal(_typeof(plus.comments.list), 'function');
   });
 
-  it('should be able to gen top level methods', function() {
-    assert.equal(typeof googleapis.oauth2('v2').tokeninfo, 'function');
-    assert.equal(typeof googleapis.freebase('v1').reconcile, 'function');
+  it('should be able to gen top level methods', function () {
+    assert.equal(_typeof(googleapis.oauth2('v2').tokeninfo), 'function');
+    assert.equal(_typeof(googleapis.freebase('v1').reconcile), 'function');
   });
 
-  it('should be able to gen top level methods and resources', function() {
+  it('should be able to gen top level methods and resources', function () {
     var oauth2 = googleapis.oauth2('v2');
-    assert.equal(typeof oauth2.tokeninfo, 'function');
-    assert.equal(typeof oauth2.userinfo, 'object');
+    assert.equal(_typeof(oauth2.tokeninfo), 'function');
+    assert.equal(_typeof(oauth2.userinfo), 'object');
   });
 
-  it('should be able to gen nested resources and methods', function() {
+  it('should be able to gen nested resources and methods', function () {
     var oauth2 = googleapis.oauth2('v2');
-    assert.equal(typeof oauth2.userinfo, 'object');
-    assert.equal(typeof oauth2.userinfo.v2, 'object');
-    assert.equal(typeof oauth2.userinfo.v2.me, 'object');
-    assert.equal(typeof oauth2.userinfo.v2.me.get, 'function');
+    assert.equal(_typeof(oauth2.userinfo), 'object');
+    assert.equal(_typeof(oauth2.userinfo.v2), 'object');
+    assert.equal(_typeof(oauth2.userinfo.v2.me), 'object');
+    assert.equal(_typeof(oauth2.userinfo.v2.me.get), 'function');
   });
 
-  it('should be able to require all api files without error', function() {
+  it('should be able to require all api files without error', function () {
     function getFiles(dir, files_) {
       files_ = files_ || [];
       if (typeof files_ === 'undefined') files_ = [];
       var files = fs.readdirSync(dir);
       for (var i in files) {
-          if (!files.hasOwnProperty(i)) continue;
-          var name = dir + '/' + files[i];
-          if (fs.statSync(name).isDirectory()) {
-              getFiles(name, files_);
-          } else {
-              files_.push(name);
-          }
+        if (!files.hasOwnProperty(i)) continue;
+        var name = dir + '/' + files[i];
+        if (fs.statSync(name).isDirectory()) {
+          getFiles(name, files_);
+        } else {
+          files_.push(name);
+        }
       }
       return files_;
     }
 
     var api_files = getFiles(__dirname + '/../apis');
 
-    assert.doesNotThrow(function() {
+    assert.doesNotThrow(function () {
       for (var i in api_files) {
         var obj = require(api_files[i]);
       }

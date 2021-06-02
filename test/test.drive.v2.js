@@ -1,5 +1,17 @@
-import ext_nock from "nock";
-import ext_assert from "assert";
+"use strict";
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _nock = require("nock");
+
+var _nock2 = _interopRequireDefault(_nock);
+
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -18,65 +30,65 @@ import ext_assert from "assert";
 
 'use strict';
 
-var assert = ext_assert;
+var assert = _assert2.default;
 var google = require('../lib/googleapis.js');
-var nock = ext_nock;
+var nock = _nock2.default;
 
 nock.disableNetConnect();
 
-describe('drive:v2', function() {
+describe('drive:v2', function () {
 
   function noop() {}
 
-  it('should exist', function(done) {
-    assert.notEqual(typeof google.drive, null);
+  it('should exist', function (done) {
+    assert.notEqual(_typeof(google.drive), null);
     done();
   });
 
-  it('should be a function', function(done) {
-    assert.equal(typeof google.drive, 'function');
+  it('should be a function', function (done) {
+    assert.equal(_typeof(google.drive), 'function');
     done();
   });
 
-  it('should create a drive object', function(done) {
+  it('should create a drive object', function (done) {
     var drive = google.drive('v2');
-    assert.notEqual(typeof drive, 'undefined');
+    assert.notEqual(typeof drive === "undefined" ? "undefined" : _typeof(drive), 'undefined');
     done();
   });
 
-  it('should be frozen (immutable)', function(done) {
+  it('should be frozen (immutable)', function (done) {
     var drive = google.drive('v2');
     assert.equal(Object.isFrozen(drive), true);
     done();
   });
 
-  describe('.files', function() {
-    it('should exist', function(done) {
+  describe('.files', function () {
+    it('should exist', function (done) {
       var drive = google.drive('v2');
-      assert.notEqual(typeof drive.files, 'undefined');
+      assert.notEqual(_typeof(drive.files), 'undefined');
       done();
     });
 
-    it('should be an object', function(done) {
+    it('should be an object', function (done) {
       var drive = google.drive('v2');
-      assert.equal(typeof drive.files, 'object');
+      assert.equal(_typeof(drive.files), 'object');
       done();
     });
 
-    describe('.insert', function() {
-      it('should exist', function(done) {
+    describe('.insert', function () {
+      it('should exist', function (done) {
         var drive = google.drive('v2');
-        assert.notEqual(typeof drive.files.insert, 'undefined');
+        assert.notEqual(_typeof(drive.files.insert), 'undefined');
         done();
       });
 
-      it('should be a function', function(done) {
+      it('should be a function', function (done) {
         var drive = google.drive('v2');
-        assert.equal(typeof drive.files.insert, 'function');
+        assert.equal(_typeof(drive.files.insert), 'function');
         done();
       });
 
-      it('should return a Request object', function(done) {
+      it('should return a Request object', function (done) {
         var drive = google.drive('v2');
         var req = drive.files.insert({}, noop);
         assert.equal(req.constructor.name, 'Request');
@@ -84,18 +96,18 @@ describe('drive:v2', function() {
       });
     });
 
-    describe('.get', function() {
-      it('should exist', function() {
+    describe('.get', function () {
+      it('should exist', function () {
         var drive = google.drive('v2');
-        assert.notEqual(typeof drive.files.get, 'undefined');
+        assert.notEqual(_typeof(drive.files.get), 'undefined');
       });
 
-      it('should be a function', function() {
+      it('should be a function', function () {
         var drive = google.drive('v2');
-        assert.equal(typeof drive.files.get, 'function');
+        assert.equal(_typeof(drive.files.get), 'function');
       });
 
-      it('should return a Request object', function() {
+      it('should return a Request object', function () {
         var drive = google.drive('v2');
         var req = drive.files.get({ fileId: '123' }, noop);
         assert.equal(req.constructor.name, 'Request');
@@ -103,26 +115,24 @@ describe('drive:v2', function() {
     });
   });
 
-  describe('._options', function() {
-    it('should exist', function() {
+  describe('._options', function () {
+    it('should exist', function () {
       var drive = google.drive('v2');
-      assert.notEqual(typeof drive._options, 'undefined');
+      assert.notEqual(_typeof(drive._options), 'undefined');
     });
 
-    it('should be an object', function() {
+    it('should be an object', function () {
       var drive = google.drive('v2');
-      assert.equal(typeof drive._options, 'object');
+      assert.equal(_typeof(drive._options), 'object');
     });
   });
 
-  describe('.files.list()', function() {
-    it('should not return missing param error', function(done) {
-      Array.prototype.lol = function() {};
-      var scope = nock('https://www.googleapis.com')
-        .get('/drive/v2/files?q=hello')
-        .reply(200);
+  describe('.files.list()', function () {
+    it('should not return missing param error', function (done) {
+      Array.prototype.lol = function () {};
+      var scope = nock('https://www.googleapis.com').get('/drive/v2/files?q=hello').reply(200);
       var drive = google.drive('v2');
-      var req = drive.files.list({ q: 'hello' }, function(err, body) {
+      var req = drive.files.list({ q: 'hello' }, function (err, body) {
         assert.equal(err, null);
         done();
       });

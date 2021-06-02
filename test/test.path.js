@@ -1,4 +1,11 @@
-import ext_assert from "assert";
+'use strict';
+
+var _assert = require('assert');
+
+var _assert2 = _interopRequireDefault(_assert);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -17,77 +24,76 @@ import ext_assert from "assert";
 
 'use strict';
 
-var assert = ext_assert;
+var assert = _assert2.default;
 var googleapis = require('../lib/googleapis.js');
 var google, drive, authClient, OAuth2;
 
-describe('Path params', function() {
+describe('Path params', function () {
 
   function noop() {}
 
-  beforeEach(function() {
+  beforeEach(function () {
     google = new googleapis.GoogleApis();
     drive = google.drive('v2');
   });
 
-  it('should not throw error if not included and required', function(done) {
-    assert.doesNotThrow(function() {
+  it('should not throw error if not included and required', function (done) {
+    assert.doesNotThrow(function () {
       drive.files.get({}, noop);
       done();
     });
   });
 
-  it('should return an err object if not included and required', function(done) {
-    var req = drive.files.get({}, function(err, resp) {
+  it('should return an err object if not included and required', function (done) {
+    var req = drive.files.get({}, function (err, resp) {
       assert.notEqual(err, null);
       done();
     });
   });
 
-  it('should return null response object if not included and required', function(done) {
-    var req = drive.files.get({}, function(err, resp) {
+  it('should return null response object if not included and required', function (done) {
+    var req = drive.files.get({}, function (err, resp) {
       assert.equal(resp, null);
       done();
     });
   });
 
-  it('should return null request object if not included and required', function() {
+  it('should return null request object if not included and required', function () {
     var req = drive.files.get({}, noop);
     assert.equal(req, null);
   });
 
-  it('should return null request object if not included and required and no callback', function() {
+  it('should return null request object if not included and required and no callback', function () {
     var req = drive.files.get({}, noop);
     assert.equal(req, null);
   });
 
-  it('should not be modifiable directly', function() {
+  it('should not be modifiable directly', function () {
     var drive = google.drive('v2');
     var options = { fileId: '123' };
-    assert.doesNotThrow(
-      function() {
-        // should not modify options object
-        drive.files.get(options, noop);
-        drive.files.get(options, noop);
-      });
+    assert.doesNotThrow(function () {
+      // should not modify options object
+      drive.files.get(options, noop);
+      drive.files.get(options, noop);
+    });
   });
 
-  it('should be put in URL of path', function() {
+  it('should be put in URL of path', function () {
     var req = drive.files.get({ fileId: 'abc123' }, noop);
     assert.equal(req.uri.path, '/drive/v2/files/abc123');
   });
 
-  it('should be put in URL of pathname', function() {
+  it('should be put in URL of pathname', function () {
     var req = drive.files.get({ fileId: '123abc' }, noop);
     assert.equal(req.uri.pathname, '/drive/v2/files/123abc');
   });
 
-  it('should keep query params null if only path params', function() {
+  it('should keep query params null if only path params', function () {
     var req = drive.files.get({ fileId: '123abc' }, noop);
     assert.equal(req.uri.query, null);
   });
 
-  it('should keep query params as is', function() {
+  it('should keep query params as is', function () {
     var req = drive.files.get({ fileId: '123abc', hello: 'world' }, noop);
     assert.equal(req.uri.query, 'hello=world');
   });

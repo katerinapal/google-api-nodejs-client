@@ -1,4 +1,11 @@
-import ext_assert from "assert";
+'use strict';
+
+var _assert = require('assert');
+
+var _assert2 = _interopRequireDefault(_assert);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -17,15 +24,15 @@ import ext_assert from "assert";
 
 'use strict';
 
-var assert = ext_assert;
+var assert = _assert2.default;
 var googleapis = require('../lib/googleapis.js');
 var google, drive, authClient, OAuth2;
 
-describe('Query params', function() {
+describe('Query params', function () {
 
   function noop() {}
 
-  beforeEach(function() {
+  beforeEach(function () {
     google = new googleapis.GoogleApis();
     OAuth2 = google.auth.OAuth2;
     authClient = new OAuth2('CLIENT_ID', 'CLIENT_SECRET', 'REDIRECT_URL');
@@ -33,32 +40,32 @@ describe('Query params', function() {
     drive = google.drive('v2');
   });
 
-  it('should not append ? with no query parameters', function() {
+  it('should not append ? with no query parameters', function () {
     var uri = drive.files.get({ fileId: 'ID' }, noop).uri;
     assert.equal(-1, uri.href.indexOf('?'));
   });
 
-  it('should be null if no object passed', function() {
+  it('should be null if no object passed', function () {
     var req = drive.files.list(noop);
     assert.equal(req.uri.query, null);
   });
 
-  it('should be null if params passed are in path', function() {
+  it('should be null if params passed are in path', function () {
     var req = drive.files.get({ fileId: '123' }, noop);
     assert.equal(req.uri.query, null);
   });
 
-  it('should be set if params passed are optional query params', function() {
+  it('should be set if params passed are optional query params', function () {
     var req = drive.files.get({ fileId: '123', updateViewedDate: true }, noop);
     assert.equal(req.uri.query, 'updateViewedDate=true');
   });
 
-  it('should be set if params passed are unknown params', function() {
+  it('should be set if params passed are unknown params', function () {
     var req = drive.files.get({ fileId: '123', madeThisUp: 'hello' }, noop);
     assert.equal(req.uri.query, 'madeThisUp=hello');
   });
 
-  it('should chain together with & in order', function() {
+  it('should chain together with & in order', function () {
     var req = drive.files.get({
       fileId: '123',
       madeThisUp: 'hello',
@@ -67,7 +74,7 @@ describe('Query params', function() {
     assert.equal(req.uri.query, 'madeThisUp=hello&thisToo=world');
   });
 
-  it('should not include auth if auth is an OAuth2Client object', function() {
+  it('should not include auth if auth is an OAuth2Client object', function () {
     var req = drive.files.get({
       fileId: '123',
       auth: authClient

@@ -1,9 +1,31 @@
-import ext_nock from "nock";
-import ext_crypto from "crypto";
-import ext_fs from "fs";
-import ext_querystring from "querystring";
-import ext_assert from "assert";
-import ext_url from "url";
+"use strict";
+
+var _nock = require("nock");
+
+var _nock2 = _interopRequireDefault(_nock);
+
+var _crypto = require("crypto");
+
+var _crypto2 = _interopRequireDefault(_crypto);
+
+var _fs = require("fs");
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _querystring = require("querystring");
+
+var _querystring2 = _interopRequireDefault(_querystring);
+
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _url = require("url");
+
+var _url2 = _interopRequireDefault(_url);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * Copyright 2013 Google Inc. All Rights Reserved.
  *
@@ -22,17 +44,17 @@ import ext_url from "url";
 
 'use strict';
 
-var url = ext_url;
-var assert = ext_assert;
-var qs = ext_querystring;
-var fs = ext_fs;
+var url = _url2.default;
+var assert = _assert2.default;
+var qs = _querystring2.default;
+var fs = _fs2.default;
 var googleapis = require('../lib/googleapis.js');
-var crypto = ext_crypto;
-var nock = ext_nock;
+var crypto = _crypto2.default;
+var nock = _nock2.default;
 
 nock.disableNetConnect();
 
-describe('OAuth2 client', function() {
+describe('OAuth2 client', function () {
 
   function noop() {}
 
@@ -46,15 +68,14 @@ describe('OAuth2 client', function() {
   var PUBLIC_KEY = '';
   var PRIVATE_KEY = '';
 
-  it('should generate a valid consent page url', function(done) {
+  it('should generate a valid consent page url', function (done) {
     var opts = {
       access_type: ACCESS_TYPE,
       scope: SCOPE,
       response_type: 'code token'
     };
 
-    var oauth2client =
-        new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     var generated = oauth2client.generateAuthUrl(opts);
     var parsed = url.parse(generated);
     var query = qs.parse(parsed.query);
@@ -67,15 +88,14 @@ describe('OAuth2 client', function() {
     done();
   });
 
-  it('should allow scopes to be specified as array', function(done) {
+  it('should allow scopes to be specified as array', function (done) {
     var opts = {
       access_type: ACCESS_TYPE,
       scope: SCOPE_ARRAY,
       response_type: 'code token'
     };
 
-    var oauth2client =
-        new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     var generated = oauth2client.generateAuthUrl(opts);
     var parsed = url.parse(generated);
     var query = qs.parse(parsed.query);
@@ -84,10 +104,8 @@ describe('OAuth2 client', function() {
     done();
   });
 
-  it('should set response_type param to code if none is given while' +
-      'generating the consent page url', function(done) {
-    var oauth2client =
-        new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+  it('should set response_type param to code if none is given while' + 'generating the consent page url', function (done) {
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     var generated = oauth2client.generateAuthUrl();
     var parsed = url.parse(generated);
     var query = qs.parse(parsed.query);
@@ -96,27 +114,26 @@ describe('OAuth2 client', function() {
     done();
   });
 
-  it('should return err no access or refresh token is set before making a request', function(done) {
+  it('should return err no access or refresh token is set before making a request', function (done) {
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    new googleapis.GoogleApis()
-      .urlshortener('v1').url.get({ shortUrl: '123', auth: oauth2client }, function(err, result) {
-        assert.equal(err.message, 'No access or refresh token is set.');
-        assert.equal(result, null);
-        done();
-      });
+    new googleapis.GoogleApis().urlshortener('v1').url.get({ shortUrl: '123', auth: oauth2client }, function (err, result) {
+      assert.equal(err.message, 'No access or refresh token is set.');
+      assert.equal(result, null);
+      done();
+    });
   });
 
-  it('should not throw any exceptions if only refresh token is set', function() {
+  it('should not throw any exceptions if only refresh token is set', function () {
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     oauth2client.credentials = { refresh_token: 'refresh_token' };
-    assert.doesNotThrow(function() {
+    assert.doesNotThrow(function () {
       var google = new googleapis.GoogleApis();
       var options = { auth: oauth2client, shortUrl: '...' };
       google.urlshortener('v1').url.get(options, noop);
     });
   });
 
-  it('should set access token type to Bearer if none is set', function(done) {
+  it('should set access token type to Bearer if none is set', function (done) {
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     oauth2client.credentials = { access_token: 'foo', refresh_token: '' };
 
@@ -124,39 +141,25 @@ describe('OAuth2 client', function() {
 
     var google = new googleapis.GoogleApis();
     var urlshortener = google.urlshortener('v1');
-    urlshortener.url.list({ auth: oauth2client }, function(err, result) {
+    urlshortener.url.list({ auth: oauth2client }, function (err, result) {
       assert.equal(oauth2client.credentials.token_type, 'Bearer');
       scope.done();
       done(err);
     });
   });
 
-  it('should verify a valid certificate against a jwt', function(done) {
+  it('should verify a valid certificate against a jwt', function (done) {
     var publicKey = fs.readFileSync('./test/fixtures/public.pem', 'utf-8');
     var privateKey = fs.readFileSync('./test/fixtures/private.pem', 'utf-8');
 
     var maxLifetimeSecs = 86400;
     var now = new Date().getTime() / 1000;
-    var expiry = now + (maxLifetimeSecs / 2);
+    var expiry = now + maxLifetimeSecs / 2;
 
-    var idToken = '{' +
-        '"iss":"testissuer",' +
-        '"aud":"testaudience",' +
-        '"azp":"testauthorisedparty",' +
-        '"email_verified":"true",' +
-        '"id":"123456789",' +
-        '"sub":"123456789",' +
-        '"email":"test@test.com",' +
-        '"iat":' + now + ',' +
-        '"exp":' + expiry +
-      '}';
-    var envelope = '{' +
-        '"kid":"keyid",' +
-        '"alg":"RS256"' +
-      '}';
+    var idToken = '{' + '"iss":"testissuer",' + '"aud":"testaudience",' + '"azp":"testauthorisedparty",' + '"email_verified":"true",' + '"id":"123456789",' + '"sub":"123456789",' + '"email":"test@test.com",' + '"iat":' + now + ',' + '"exp":' + expiry + '}';
+    var envelope = '{' + '"kid":"keyid",' + '"alg":"RS256"' + '}';
 
-    var data = new Buffer(envelope).toString('base64') +
-      '.' + new Buffer(idToken).toString('base64');
+    var data = new Buffer(envelope).toString('base64') + '.' + new Buffer(idToken).toString('base64');
 
     var signer = crypto.createSign('sha256');
     signer.update(data);
@@ -164,43 +167,25 @@ describe('OAuth2 client', function() {
 
     data += '.' + signature;
 
-    var oauth2client =
-      new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    var login = oauth2client.verifySignedJwtWithCerts(data,
-        {keyid: publicKey}, 'testaudience');
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    var login = oauth2client.verifySignedJwtWithCerts(data, { keyid: publicKey }, 'testaudience');
 
     assert.equal(login.getUserId(), '123456789');
     done();
   });
 
-  it('should fail due to invalid audience', function(done) {
-    var publicKey = fs.readFileSync('./test/fixtures/public.pem',
-        'utf-8');
-    var privateKey = fs.readFileSync('./test/fixtures/private.pem',
-        'utf-8');
+  it('should fail due to invalid audience', function (done) {
+    var publicKey = fs.readFileSync('./test/fixtures/public.pem', 'utf-8');
+    var privateKey = fs.readFileSync('./test/fixtures/private.pem', 'utf-8');
 
     var maxLifetimeSecs = 86400;
     var now = new Date().getTime() / 1000;
-    var expiry = now + (maxLifetimeSecs / 2);
+    var expiry = now + maxLifetimeSecs / 2;
 
-    var idToken = '{' +
-        '"iss":"testissuer",' +
-        '"aud":"wrongaudience",' +
-        '"azp":"testauthorisedparty",' +
-        '"email_verified":"true",' +
-        '"id":"123456789",' +
-        '"sub":"123456789",' +
-        '"email":"test@test.com",' +
-        '"iat":' + now + ',' +
-        '"exp":' + expiry +
-      '}';
-    var envelope = '{' +
-        '"kid":"keyid",' +
-        '"alg":"RS256"' +
-      '}';
+    var idToken = '{' + '"iss":"testissuer",' + '"aud":"wrongaudience",' + '"azp":"testauthorisedparty",' + '"email_verified":"true",' + '"id":"123456789",' + '"sub":"123456789",' + '"email":"test@test.com",' + '"iat":' + now + ',' + '"exp":' + expiry + '}';
+    var envelope = '{' + '"kid":"keyid",' + '"alg":"RS256"' + '}';
 
-    var data = new Buffer(envelope).toString('base64') +
-      '.' + new Buffer(idToken).toString('base64');
+    var data = new Buffer(envelope).toString('base64') + '.' + new Buffer(idToken).toString('base64');
 
     var signer = crypto.createSign('sha256');
     signer.update(data);
@@ -208,47 +193,26 @@ describe('OAuth2 client', function() {
 
     data += '.' + signature;
 
-    var oauth2client =
-      new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    assert.throws(
-      function() {
-        var login = oauth2client.verifySignedJwtWithCerts(data,
-            {keyid: publicKey}, 'testaudience');
-      },
-      /Wrong recipient/
-    );
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    assert.throws(function () {
+      var login = oauth2client.verifySignedJwtWithCerts(data, { keyid: publicKey }, 'testaudience');
+    }, /Wrong recipient/);
 
     done();
   });
 
-  it('should fail due to invalid signature', function(done) {
-    var publicKey = fs.readFileSync('./test/fixtures/public.pem',
-        'utf-8');
-    var privateKey = fs.readFileSync('./test/fixtures/private.pem',
-        'utf-8');
+  it('should fail due to invalid signature', function (done) {
+    var publicKey = fs.readFileSync('./test/fixtures/public.pem', 'utf-8');
+    var privateKey = fs.readFileSync('./test/fixtures/private.pem', 'utf-8');
 
     var maxLifetimeSecs = 86400;
     var now = new Date().getTime() / 1000;
-    var expiry = now + (maxLifetimeSecs / 2);
+    var expiry = now + maxLifetimeSecs / 2;
 
-    var idToken = '{' +
-        '"iss":"testissuer",' +
-        '"aud":"testaudience",' +
-        '"azp":"testauthorisedparty",' +
-        '"email_verified":"true",' +
-        '"id":"123456789",' +
-        '"sub":"123456789",' +
-        '"email":"test@test.com",' +
-        '"iat":1393241597,' +
-        '"exp":1393245497' +
-      '}';
-    var envelope = '{' +
-        '"kid":"keyid",' +
-        '"alg":"RS256"' +
-      '}';
+    var idToken = '{' + '"iss":"testissuer",' + '"aud":"testaudience",' + '"azp":"testauthorisedparty",' + '"email_verified":"true",' + '"id":"123456789",' + '"sub":"123456789",' + '"email":"test@test.com",' + '"iat":1393241597,' + '"exp":1393245497' + '}';
+    var envelope = '{' + '"kid":"keyid",' + '"alg":"RS256"' + '}';
 
-    var data = new Buffer(envelope).toString('base64') +
-      '.' + new Buffer(idToken).toString('base64');
+    var data = new Buffer(envelope).toString('base64') + '.' + new Buffer(idToken).toString('base64');
 
     var signer = crypto.createSign('sha256');
     signer.update(data);
@@ -257,47 +221,26 @@ describe('OAuth2 client', function() {
     //Originally: data += '.'+signature;
     data += signature;
 
-    var oauth2client =
-      new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    assert.throws(
-      function() {
-        var login = oauth2client.verifySignedJwtWithCerts(data,
-            {keyid: publicKey}, 'testaudience');
-      },
-      /Wrong number of segments/
-    );
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    assert.throws(function () {
+      var login = oauth2client.verifySignedJwtWithCerts(data, { keyid: publicKey }, 'testaudience');
+    }, /Wrong number of segments/);
 
     done();
   });
 
-  it('should fail due to invalid envelope', function(done) {
-    var publicKey = fs.readFileSync('./test/fixtures/public.pem',
-        'utf-8');
-    var privateKey = fs.readFileSync('./test/fixtures/private.pem',
-        'utf-8');
+  it('should fail due to invalid envelope', function (done) {
+    var publicKey = fs.readFileSync('./test/fixtures/public.pem', 'utf-8');
+    var privateKey = fs.readFileSync('./test/fixtures/private.pem', 'utf-8');
 
     var maxLifetimeSecs = 86400;
     var now = new Date().getTime() / 1000;
-    var expiry = now + (maxLifetimeSecs / 2);
+    var expiry = now + maxLifetimeSecs / 2;
 
-    var idToken = '{' +
-        '"iss":"testissuer",' +
-        '"aud":"testaudience",' +
-        '"azp":"testauthorisedparty",' +
-        '"email_verified":"true",' +
-        '"id":"123456789",' +
-        '"sub":"123456789",' +
-        '"email":"test@test.com",' +
-        '"iat":' + now + ',' +
-        '"exp":' + expiry +
-      '}';
-    var envelope = '{' +
-        '"kid":"keyid"' +
-        '"alg":"RS256"' +
-      '}';
+    var idToken = '{' + '"iss":"testissuer",' + '"aud":"testaudience",' + '"azp":"testauthorisedparty",' + '"email_verified":"true",' + '"id":"123456789",' + '"sub":"123456789",' + '"email":"test@test.com",' + '"iat":' + now + ',' + '"exp":' + expiry + '}';
+    var envelope = '{' + '"kid":"keyid"' + '"alg":"RS256"' + '}';
 
-    var data = new Buffer(envelope).toString('base64') +
-      '.' + new Buffer(idToken).toString('base64');
+    var data = new Buffer(envelope).toString('base64') + '.' + new Buffer(idToken).toString('base64');
 
     var signer = crypto.createSign('sha256');
     signer.update(data);
@@ -305,47 +248,26 @@ describe('OAuth2 client', function() {
 
     data += '.' + signature;
 
-    var oauth2client =
-      new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    assert.throws(
-      function() {
-        var login = oauth2client.verifySignedJwtWithCerts(data,
-          {keyid: publicKey}, 'testaudience');
-      },
-      /Can\'t parse token envelope/
-    );
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    assert.throws(function () {
+      var login = oauth2client.verifySignedJwtWithCerts(data, { keyid: publicKey }, 'testaudience');
+    }, /Can\'t parse token envelope/);
 
     done();
   });
 
-  it('should fail due to invalid payload', function(done) {
-    var publicKey = fs.readFileSync('./test/fixtures/public.pem',
-        'utf-8');
-    var privateKey = fs.readFileSync('./test/fixtures/private.pem',
-        'utf-8');
+  it('should fail due to invalid payload', function (done) {
+    var publicKey = fs.readFileSync('./test/fixtures/public.pem', 'utf-8');
+    var privateKey = fs.readFileSync('./test/fixtures/private.pem', 'utf-8');
 
     var maxLifetimeSecs = 86400;
     var now = new Date().getTime() / 1000;
-    var expiry = now + (maxLifetimeSecs / 2);
+    var expiry = now + maxLifetimeSecs / 2;
 
-    var idToken = '{' +
-        '"iss":"testissuer"' +
-        '"aud":"testaudience",' +
-        '"azp":"testauthorisedparty",' +
-        '"email_verified":"true",' +
-        '"id":"123456789",' +
-        '"sub":"123456789",' +
-        '"email":"test@test.com",' +
-        '"iat":' + now + ',' +
-        '"exp":' + expiry +
-      '}';
-    var envelope = '{' +
-        '"kid":"keyid",' +
-        '"alg":"RS256"' +
-      '}';
+    var idToken = '{' + '"iss":"testissuer"' + '"aud":"testaudience",' + '"azp":"testauthorisedparty",' + '"email_verified":"true",' + '"id":"123456789",' + '"sub":"123456789",' + '"email":"test@test.com",' + '"iat":' + now + ',' + '"exp":' + expiry + '}';
+    var envelope = '{' + '"kid":"keyid",' + '"alg":"RS256"' + '}';
 
-    var data = new Buffer(envelope).toString('base64') +
-      '.' + new Buffer(idToken).toString('base64');
+    var data = new Buffer(envelope).toString('base64') + '.' + new Buffer(idToken).toString('base64');
 
     var signer = crypto.createSign('sha256');
     signer.update(data);
@@ -353,87 +275,46 @@ describe('OAuth2 client', function() {
 
     data += '.' + signature;
 
-    var oauth2client =
-      new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    assert.throws(
-      function() {
-        var login = oauth2client.verifySignedJwtWithCerts(data,
-          {keyid: publicKey}, 'testaudience');
-      },
-      /Can\'t parse token payload/
-    );
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    assert.throws(function () {
+      var login = oauth2client.verifySignedJwtWithCerts(data, { keyid: publicKey }, 'testaudience');
+    }, /Can\'t parse token payload/);
 
     done();
   });
 
-  it('should fail due to invalid signature', function(done) {
-    var publicKey = fs.readFileSync('./test/fixtures/public.pem',
-        'utf-8');
+  it('should fail due to invalid signature', function (done) {
+    var publicKey = fs.readFileSync('./test/fixtures/public.pem', 'utf-8');
 
     var maxLifetimeSecs = 86400;
     var now = new Date().getTime() / 1000;
-    var expiry = now + (maxLifetimeSecs / 2);
+    var expiry = now + maxLifetimeSecs / 2;
 
-    var idToken = '{' +
-        '"iss":"testissuer",' +
-        '"aud":"testaudience",' +
-        '"azp":"testauthorisedparty",' +
-        '"email_verified":"true",' +
-        '"id":"123456789",' +
-        '"sub":"123456789",' +
-        '"email":"test@test.com",' +
-        '"iat":' + now + ',' +
-        '"exp":' + expiry +
-      '}';
-    var envelope = '{' +
-        '"kid":"keyid",' +
-        '"alg":"RS256"' +
-      '}';
+    var idToken = '{' + '"iss":"testissuer",' + '"aud":"testaudience",' + '"azp":"testauthorisedparty",' + '"email_verified":"true",' + '"id":"123456789",' + '"sub":"123456789",' + '"email":"test@test.com",' + '"iat":' + now + ',' + '"exp":' + expiry + '}';
+    var envelope = '{' + '"kid":"keyid",' + '"alg":"RS256"' + '}';
 
-    var data = new Buffer(envelope).toString('base64') +
-      '.' + new Buffer(idToken).toString('base64') +
-      '.' + 'broken-signature';
+    var data = new Buffer(envelope).toString('base64') + '.' + new Buffer(idToken).toString('base64') + '.' + 'broken-signature';
 
-    var oauth2client =
-      new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    assert.throws(
-      function() {
-        var login = oauth2client.verifySignedJwtWithCerts(data,
-            {keyid: publicKey}, 'testaudience');
-      },
-      /Invalid token signature/
-    );
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    assert.throws(function () {
+      var login = oauth2client.verifySignedJwtWithCerts(data, { keyid: publicKey }, 'testaudience');
+    }, /Invalid token signature/);
 
     done();
   });
 
-  it('should fail due to no expiration date', function(done) {
-    var publicKey = fs.readFileSync('./test/fixtures/public.pem',
-        'utf-8');
-    var privateKey = fs.readFileSync('./test/fixtures/private.pem',
-        'utf-8');
+  it('should fail due to no expiration date', function (done) {
+    var publicKey = fs.readFileSync('./test/fixtures/public.pem', 'utf-8');
+    var privateKey = fs.readFileSync('./test/fixtures/private.pem', 'utf-8');
 
     var maxLifetimeSecs = 86400;
     var now = new Date().getTime() / 1000;
-    var expiry = now + (maxLifetimeSecs / 2);
+    var expiry = now + maxLifetimeSecs / 2;
 
-    var idToken = '{' +
-        '"iss":"testissuer",' +
-        '"aud":"testaudience",' +
-        '"azp":"testauthorisedparty",' +
-        '"email_verified":"true",' +
-        '"id":"123456789",' +
-        '"sub":"123456789",' +
-        '"email":"test@test.com",' +
-        '"iat":' + now +
-      '}';
-    var envelope = '{' +
-        '"kid":"keyid",' +
-        '"alg":"RS256"' +
-      '}';
+    var idToken = '{' + '"iss":"testissuer",' + '"aud":"testaudience",' + '"azp":"testauthorisedparty",' + '"email_verified":"true",' + '"id":"123456789",' + '"sub":"123456789",' + '"email":"test@test.com",' + '"iat":' + now + '}';
+    var envelope = '{' + '"kid":"keyid",' + '"alg":"RS256"' + '}';
 
-    var data = new Buffer(envelope).toString('base64') +
-      '.' + new Buffer(idToken).toString('base64');
+    var data = new Buffer(envelope).toString('base64') + '.' + new Buffer(idToken).toString('base64');
 
     var signer = crypto.createSign('sha256');
     signer.update(data);
@@ -441,46 +322,26 @@ describe('OAuth2 client', function() {
 
     data += '.' + signature;
 
-    var oauth2client =
-      new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    assert.throws(
-      function() {
-        var login = oauth2client.verifySignedJwtWithCerts(data,
-            {keyid: publicKey}, 'testaudience');
-      },
-      /No expiration time/
-    );
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    assert.throws(function () {
+      var login = oauth2client.verifySignedJwtWithCerts(data, { keyid: publicKey }, 'testaudience');
+    }, /No expiration time/);
 
     done();
   });
 
-  it('should fail due to no issue time', function(done) {
-    var publicKey = fs.readFileSync('./test/fixtures/public.pem',
-        'utf-8');
-    var privateKey = fs.readFileSync('./test/fixtures/private.pem',
-        'utf-8');
+  it('should fail due to no issue time', function (done) {
+    var publicKey = fs.readFileSync('./test/fixtures/public.pem', 'utf-8');
+    var privateKey = fs.readFileSync('./test/fixtures/private.pem', 'utf-8');
 
     var maxLifetimeSecs = 86400;
     var now = new Date().getTime() / 1000;
-    var expiry = now + (maxLifetimeSecs / 2);
+    var expiry = now + maxLifetimeSecs / 2;
 
-    var idToken = '{' +
-        '"iss":"testissuer",' +
-        '"aud":"testaudience",' +
-        '"azp":"testauthorisedparty",' +
-        '"email_verified":"true",' +
-        '"id":"123456789",' +
-        '"sub":"123456789",' +
-        '"email":"test@test.com",' +
-        '"exp":' + expiry +
-      '}';
-    var envelope = '{' +
-        '"kid":"keyid",' +
-        '"alg":"RS256"' +
-      '}';
+    var idToken = '{' + '"iss":"testissuer",' + '"aud":"testaudience",' + '"azp":"testauthorisedparty",' + '"email_verified":"true",' + '"id":"123456789",' + '"sub":"123456789",' + '"email":"test@test.com",' + '"exp":' + expiry + '}';
+    var envelope = '{' + '"kid":"keyid",' + '"alg":"RS256"' + '}';
 
-    var data = new Buffer(envelope).toString('base64') +
-      '.' + new Buffer(idToken).toString('base64');
+    var data = new Buffer(envelope).toString('base64') + '.' + new Buffer(idToken).toString('base64');
 
     var signer = crypto.createSign('sha256');
     signer.update(data);
@@ -488,46 +349,25 @@ describe('OAuth2 client', function() {
 
     data += '.' + signature;
 
-    var oauth2client =
-      new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    assert.throws(
-      function() {
-        var login = oauth2client.verifySignedJwtWithCerts(data,
-            {keyid: publicKey}, 'testaudience');
-      },
-      /No issue time/
-    );
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    assert.throws(function () {
+      var login = oauth2client.verifySignedJwtWithCerts(data, { keyid: publicKey }, 'testaudience');
+    }, /No issue time/);
 
     done();
   });
 
-  it('should fail due to certificate with expiration date in future', function(done) {
-    var publicKey = fs.readFileSync('./test/fixtures/public.pem',
-        'utf-8');
-    var privateKey = fs.readFileSync('./test/fixtures/private.pem',
-        'utf-8');
+  it('should fail due to certificate with expiration date in future', function (done) {
+    var publicKey = fs.readFileSync('./test/fixtures/public.pem', 'utf-8');
+    var privateKey = fs.readFileSync('./test/fixtures/private.pem', 'utf-8');
 
     var maxLifetimeSecs = 86400;
     var now = new Date().getTime() / 1000;
-    var expiry = now + (2 * maxLifetimeSecs);
-    var idToken = '{' +
-        '"iss":"testissuer",' +
-        '"aud":"testaudience",' +
-        '"azp":"testauthorisedparty",' +
-        '"email_verified":"true",' +
-        '"id":"123456789",' +
-        '"sub":"123456789",' +
-        '"email":"test@test.com",' +
-        '"iat":' + now + ',' +
-        '"exp":' + expiry +
-      '}';
-    var envelope = '{' +
-        '"kid":"keyid",' +
-        '"alg":"RS256"' +
-      '}';
+    var expiry = now + 2 * maxLifetimeSecs;
+    var idToken = '{' + '"iss":"testissuer",' + '"aud":"testaudience",' + '"azp":"testauthorisedparty",' + '"email_verified":"true",' + '"id":"123456789",' + '"sub":"123456789",' + '"email":"test@test.com",' + '"iat":' + now + ',' + '"exp":' + expiry + '}';
+    var envelope = '{' + '"kid":"keyid",' + '"alg":"RS256"' + '}';
 
-    var data = new Buffer(envelope).toString('base64') +
-      '.' + new Buffer(idToken).toString('base64');
+    var data = new Buffer(envelope).toString('base64') + '.' + new Buffer(idToken).toString('base64');
 
     var signer = crypto.createSign('sha256');
     signer.update(data);
@@ -535,47 +375,26 @@ describe('OAuth2 client', function() {
 
     data += '.' + signature;
 
-    var oauth2client =
-      new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    assert.throws(
-      function() {
-        var login = oauth2client.verifySignedJwtWithCerts(data,
-            {keyid: publicKey}, 'testaudience');
-      },
-      /Expiration time too far in future/
-    );
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    assert.throws(function () {
+      var login = oauth2client.verifySignedJwtWithCerts(data, { keyid: publicKey }, 'testaudience');
+    }, /Expiration time too far in future/);
 
     done();
   });
 
-  it('should pass due to expiration date in future with adjusted max expiry', function(done) {
-    var publicKey = fs.readFileSync('./test/fixtures/public.pem',
-        'utf-8');
-    var privateKey = fs.readFileSync('./test/fixtures/private.pem',
-        'utf-8');
+  it('should pass due to expiration date in future with adjusted max expiry', function (done) {
+    var publicKey = fs.readFileSync('./test/fixtures/public.pem', 'utf-8');
+    var privateKey = fs.readFileSync('./test/fixtures/private.pem', 'utf-8');
 
     var maxLifetimeSecs = 86400;
     var now = new Date().getTime() / 1000;
-    var expiry = now + (2 * maxLifetimeSecs);
-    var maxExpiry = (3 * maxLifetimeSecs);
-    var idToken = '{' +
-        '"iss":"testissuer",' +
-        '"aud":"testaudience",' +
-        '"azp":"testauthorisedparty",' +
-        '"email_verified":"true",' +
-        '"id":"123456789",' +
-        '"sub":"123456789",' +
-        '"email":"test@test.com",' +
-        '"iat":' + now + ',' +
-        '"exp":' + expiry +
-      '}';
-    var envelope = '{' +
-        '"kid":"keyid",' +
-        '"alg":"RS256"' +
-      '}';
+    var expiry = now + 2 * maxLifetimeSecs;
+    var maxExpiry = 3 * maxLifetimeSecs;
+    var idToken = '{' + '"iss":"testissuer",' + '"aud":"testaudience",' + '"azp":"testauthorisedparty",' + '"email_verified":"true",' + '"id":"123456789",' + '"sub":"123456789",' + '"email":"test@test.com",' + '"iat":' + now + ',' + '"exp":' + expiry + '}';
+    var envelope = '{' + '"kid":"keyid",' + '"alg":"RS256"' + '}';
 
-    var data = new Buffer(envelope).toString('base64') +
-      '.' + new Buffer(idToken).toString('base64');
+    var data = new Buffer(envelope).toString('base64') + '.' + new Buffer(idToken).toString('base64');
 
     var signer = crypto.createSign('sha256');
     signer.update(data);
@@ -583,43 +402,25 @@ describe('OAuth2 client', function() {
 
     data += '.' + signature;
 
-    var oauth2client =
-      new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    var login = oauth2client.verifySignedJwtWithCerts(data,
-        {keyid: publicKey}, 'testaudience', 'testissuer', maxExpiry);
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    var login = oauth2client.verifySignedJwtWithCerts(data, { keyid: publicKey }, 'testaudience', 'testissuer', maxExpiry);
 
     done();
   });
 
-  it('should fail due to token being used to early', function(done) {
-    var publicKey = fs.readFileSync('./test/fixtures/public.pem',
-        'utf-8');
-    var privateKey = fs.readFileSync('./test/fixtures/private.pem',
-        'utf-8');
+  it('should fail due to token being used to early', function (done) {
+    var publicKey = fs.readFileSync('./test/fixtures/public.pem', 'utf-8');
+    var privateKey = fs.readFileSync('./test/fixtures/private.pem', 'utf-8');
 
     var maxLifetimeSecs = 86400;
     var clockSkews = 300;
-    var now = (new Date().getTime() / 1000);
-    var expiry = now + (maxLifetimeSecs / 2);
-    var issueTime = now + (clockSkews * 2);
-    var idToken = '{' +
-        '"iss":"testissuer",' +
-        '"aud":"testaudience",' +
-        '"azp":"testauthorisedparty",' +
-        '"email_verified":"true",' +
-        '"id":"123456789",' +
-        '"sub":"123456789",' +
-        '"email":"test@test.com",' +
-        '"iat":' + issueTime + ',' +
-        '"exp":' + expiry +
-      '}';
-    var envelope = '{' +
-        '"kid":"keyid",' +
-        '"alg":"RS256"' +
-      '}';
+    var now = new Date().getTime() / 1000;
+    var expiry = now + maxLifetimeSecs / 2;
+    var issueTime = now + clockSkews * 2;
+    var idToken = '{' + '"iss":"testissuer",' + '"aud":"testaudience",' + '"azp":"testauthorisedparty",' + '"email_verified":"true",' + '"id":"123456789",' + '"sub":"123456789",' + '"email":"test@test.com",' + '"iat":' + issueTime + ',' + '"exp":' + expiry + '}';
+    var envelope = '{' + '"kid":"keyid",' + '"alg":"RS256"' + '}';
 
-    var data = new Buffer(envelope).toString('base64') +
-      '.' + new Buffer(idToken).toString('base64');
+    var data = new Buffer(envelope).toString('base64') + '.' + new Buffer(idToken).toString('base64');
 
     var signer = crypto.createSign('sha256');
     signer.update(data);
@@ -627,47 +428,26 @@ describe('OAuth2 client', function() {
 
     data += '.' + signature;
 
-    var oauth2client =
-      new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    assert.throws(
-      function() {
-        var login = oauth2client.verifySignedJwtWithCerts(data,
-            {keyid: publicKey}, 'testaudience');
-      },
-      /Token used too early/
-    );
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    assert.throws(function () {
+      var login = oauth2client.verifySignedJwtWithCerts(data, { keyid: publicKey }, 'testaudience');
+    }, /Token used too early/);
 
     done();
   });
 
-  it('should fail due to invalid issuer', function(done) {
-    var publicKey = fs.readFileSync('./test/fixtures/public.pem',
-        'utf-8');
-    var privateKey = fs.readFileSync('./test/fixtures/private.pem',
-        'utf-8');
+  it('should fail due to invalid issuer', function (done) {
+    var publicKey = fs.readFileSync('./test/fixtures/public.pem', 'utf-8');
+    var privateKey = fs.readFileSync('./test/fixtures/private.pem', 'utf-8');
 
     var maxLifetimeSecs = 86400;
     var clockSkews = 300;
-    var now = (new Date().getTime() / 1000);
-    var expiry = now + (maxLifetimeSecs / 2);
-    var idToken = '{' +
-        '"iss":"invalidissuer",' +
-        '"aud":"testaudience",' +
-        '"azp":"testauthorisedparty",' +
-        '"email_verified":"true",' +
-        '"id":"123456789",' +
-        '"sub":"123456789",' +
-        '"email":"test@test.com",' +
-        '"iat":' + now + ',' +
-        '"exp":' + expiry +
-      '}';
-    var envelope = '{' +
-        '"kid":"keyid",' +
-        '"alg":"RS256"' +
-      '}';
+    var now = new Date().getTime() / 1000;
+    var expiry = now + maxLifetimeSecs / 2;
+    var idToken = '{' + '"iss":"invalidissuer",' + '"aud":"testaudience",' + '"azp":"testauthorisedparty",' + '"email_verified":"true",' + '"id":"123456789",' + '"sub":"123456789",' + '"email":"test@test.com",' + '"iat":' + now + ',' + '"exp":' + expiry + '}';
+    var envelope = '{' + '"kid":"keyid",' + '"alg":"RS256"' + '}';
 
-    var data = new Buffer(envelope).toString('base64') +
-      '.' + new Buffer(idToken).toString('base64');
+    var data = new Buffer(envelope).toString('base64') + '.' + new Buffer(idToken).toString('base64');
 
     var signer = crypto.createSign('sha256');
     signer.update(data);
@@ -675,47 +455,26 @@ describe('OAuth2 client', function() {
 
     data += '.' + signature;
 
-    var oauth2client =
-      new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    assert.throws(
-      function() {
-        var login = oauth2client.verifySignedJwtWithCerts(data,
-            {keyid: publicKey}, 'testaudience', 'testissuer');
-      },
-      /Invalid issuer/
-    );
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    assert.throws(function () {
+      var login = oauth2client.verifySignedJwtWithCerts(data, { keyid: publicKey }, 'testaudience', 'testissuer');
+    }, /Invalid issuer/);
 
     done();
   });
 
-  it('should pass due to valid issuer', function(done) {
-    var publicKey = fs.readFileSync('./test/fixtures/public.pem',
-        'utf-8');
-    var privateKey = fs.readFileSync('./test/fixtures/private.pem',
-        'utf-8');
+  it('should pass due to valid issuer', function (done) {
+    var publicKey = fs.readFileSync('./test/fixtures/public.pem', 'utf-8');
+    var privateKey = fs.readFileSync('./test/fixtures/private.pem', 'utf-8');
 
     var maxLifetimeSecs = 86400;
     var clockSkews = 300;
-    var now = (new Date().getTime() / 1000);
-    var expiry = now + (maxLifetimeSecs / 2);
-    var idToken = '{' +
-        '"iss":"testissuer",' +
-        '"aud":"testaudience",' +
-        '"azp":"testauthorisedparty",' +
-        '"email_verified":"true",' +
-        '"id":"123456789",' +
-        '"sub":"123456789",' +
-        '"email":"test@test.com",' +
-        '"iat":' + now + ',' +
-        '"exp":' + expiry +
-      '}';
-    var envelope = '{' +
-        '"kid":"keyid",' +
-        '"alg":"RS256"' +
-      '}';
+    var now = new Date().getTime() / 1000;
+    var expiry = now + maxLifetimeSecs / 2;
+    var idToken = '{' + '"iss":"testissuer",' + '"aud":"testaudience",' + '"azp":"testauthorisedparty",' + '"email_verified":"true",' + '"id":"123456789",' + '"sub":"123456789",' + '"email":"test@test.com",' + '"iat":' + now + ',' + '"exp":' + expiry + '}';
+    var envelope = '{' + '"kid":"keyid",' + '"alg":"RS256"' + '}';
 
-    var data = new Buffer(envelope).toString('base64') +
-      '.' + new Buffer(idToken).toString('base64');
+    var data = new Buffer(envelope).toString('base64') + '.' + new Buffer(idToken).toString('base64');
 
     var signer = crypto.createSign('sha256');
     signer.update(data);
@@ -723,18 +482,16 @@ describe('OAuth2 client', function() {
 
     data += '.' + signature;
 
-    var oauth2client =
-      new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    var login = oauth2client.verifySignedJwtWithCerts(data,
-        {keyid: publicKey}, 'testaudience', 'testissuer');
+    var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    var login = oauth2client.verifySignedJwtWithCerts(data, { keyid: publicKey }, 'testaudience', 'testissuer');
 
     done();
   });
 
-  it('should be able to retrieve a list of Google certificates', function(done) {
+  it('should be able to retrieve a list of Google certificates', function (done) {
     var scope = nock('https://www.googleapis.com').get('/oauth2/v1/certs').replyWithFile(200, __dirname + '/fixtures/oauthcerts.json');
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    oauth2client.getFederatedSignonCerts(function(err, certs) {
+    oauth2client.getFederatedSignonCerts(function (err, certs) {
       assert.equal(err, null);
       assert.equal(Object.keys(certs).length, 2);
       assert.notEqual(certs['a15eea964ab9cce480e5ef4f47cb17b9fa7d0b21'], null);
@@ -744,21 +501,17 @@ describe('OAuth2 client', function() {
     });
   });
 
-  it('should be able to retrieve a list of Google certificates from cache the second time', function(done) {
-    var scope = nock('https://www.googleapis.com')
-        .defaultReplyHeaders({
-          'Cache-Control': 'public, max-age=23641, must-revalidate, no-transform',
-          'Content-Type': 'application/json'
-        })
-        .get('/oauth2/v1/certs')
-        .once()
-        .replyWithFile(200, __dirname + '/fixtures/oauthcerts.json');
+  it('should be able to retrieve a list of Google certificates from cache the second time', function (done) {
+    var scope = nock('https://www.googleapis.com').defaultReplyHeaders({
+      'Cache-Control': 'public, max-age=23641, must-revalidate, no-transform',
+      'Content-Type': 'application/json'
+    }).get('/oauth2/v1/certs').once().replyWithFile(200, __dirname + '/fixtures/oauthcerts.json');
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    oauth2client.getFederatedSignonCerts(function(err, certs) {
+    oauth2client.getFederatedSignonCerts(function (err, certs) {
       assert.equal(err, null);
       assert.equal(Object.keys(certs).length, 2);
       scope.done(); // has retrieved from nock... nock no longer will reply
-      oauth2client.getFederatedSignonCerts(function(err, certs) {
+      oauth2client.getFederatedSignonCerts(function (err, certs) {
         assert.equal(err, null);
         assert.equal(Object.keys(certs).length, 2);
         scope.done();
@@ -767,7 +520,7 @@ describe('OAuth2 client', function() {
     });
   });
 
-  it('should set redirect_uri if not provided in options', function() {
+  it('should set redirect_uri if not provided in options', function () {
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     var generated = oauth2client.generateAuthUrl({});
     var parsed = url.parse(generated);
@@ -775,7 +528,7 @@ describe('OAuth2 client', function() {
     assert.equal(query.redirect_uri, REDIRECT_URI);
   });
 
-  it('should set client_id if not provided in options', function() {
+  it('should set client_id if not provided in options', function () {
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     var generated = oauth2client.generateAuthUrl({});
     var parsed = url.parse(generated);
@@ -783,7 +536,7 @@ describe('OAuth2 client', function() {
     assert.equal(query.client_id, CLIENT_ID);
   });
 
-  it('should override redirect_uri if provided in options', function() {
+  it('should override redirect_uri if provided in options', function () {
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     var generated = oauth2client.generateAuthUrl({ redirect_uri: 'overridden' });
     var parsed = url.parse(generated);
@@ -791,7 +544,7 @@ describe('OAuth2 client', function() {
     assert.equal(query.redirect_uri, 'overridden');
   });
 
-  it('should override client_id if provided in options', function() {
+  it('should override client_id if provided in options', function () {
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     var generated = oauth2client.generateAuthUrl({ client_id: 'client_override' });
     var parsed = url.parse(generated);
@@ -799,35 +552,33 @@ describe('OAuth2 client', function() {
     assert.equal(query.client_id, 'client_override');
   });
 
-  it('should return error in callback on request', function(done) {
+  it('should return error in callback on request', function (done) {
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    oauth2client.request({}, function(err, result) {
+    oauth2client.request({}, function (err, result) {
       assert.equal(err.message, 'No access or refresh token is set.');
       assert.equal(result, null);
       done();
     });
   });
 
-  it('should return error in callback on refreshAccessToken', function(done) {
+  it('should return error in callback on refreshAccessToken', function (done) {
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-    oauth2client.refreshAccessToken(function(err, result) {
+    oauth2client.refreshAccessToken(function (err, result) {
       assert.equal(err.message, 'No refresh token is set.');
       assert.equal(result, null);
       done();
     });
   });
 
-  it('should refresh if access token is expired', function(done) {
-    var scope = nock('https://accounts.google.com')
-        .post('/o/oauth2/token')
-        .reply(200, { access_token: 'abc123', expires_in: 1 });
+  it('should refresh if access token is expired', function (done) {
+    var scope = nock('https://accounts.google.com').post('/o/oauth2/token').reply(200, { access_token: 'abc123', expires_in: 1 });
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     var google = new googleapis.GoogleApis();
     var drive = google.drive({ version: 'v2', auth: oauth2client });
-    var now = (new Date()).getTime();
+    var now = new Date().getTime();
     var twoSecondsAgo = now - 2000;
     oauth2client.credentials = { refresh_token: 'abc', expiry_date: twoSecondsAgo };
-    drive.files.get({ fileId: 'wat' }, function(err, result) {
+    drive.files.get({ fileId: 'wat' }, function (err, result) {
       var expiry_date = oauth2client.credentials.expiry_date;
       assert.notEqual(expiry_date, undefined);
       assert(expiry_date > now);
@@ -840,17 +591,15 @@ describe('OAuth2 client', function() {
     });
   });
 
-  it('should make request if access token not expired', function(done) {
-    var scope = nock('https://accounts.google.com')
-        .post('/o/oauth2/token')
-        .reply(200, { access_token: 'abc123', expires_in: 10000 });
+  it('should make request if access token not expired', function (done) {
+    var scope = nock('https://accounts.google.com').post('/o/oauth2/token').reply(200, { access_token: 'abc123', expires_in: 10000 });
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     var google = new googleapis.GoogleApis();
     var drive = google.drive({ version: 'v2', auth: oauth2client });
-    var now = (new Date()).getTime();
+    var now = new Date().getTime();
     var tenSecondsFromNow = now + 10000;
     oauth2client.credentials = { access_token: 'abc123', refresh_token: 'abc', expiry_date: tenSecondsFromNow };
-    drive.files.get({ fileId: 'wat' }, function(err, result) {
+    drive.files.get({ fileId: 'wat' }, function (err, result) {
       assert.equal(JSON.stringify(oauth2client.credentials), JSON.stringify({
         access_token: 'abc123',
         refresh_token: 'abc',
@@ -858,7 +607,7 @@ describe('OAuth2 client', function() {
         token_type: 'Bearer'
       }));
 
-      assert.throws(function() {
+      assert.throws(function () {
         scope.done();
       }, 'AssertionError');
       nock.cleanAll();
@@ -866,16 +615,14 @@ describe('OAuth2 client', function() {
     });
   });
 
-  it('should refresh if have refresh token but no access token', function(done) {
-    var scope = nock('https://accounts.google.com')
-        .post('/o/oauth2/token')
-        .reply(200, { access_token: 'abc123', expires_in: 1 });
+  it('should refresh if have refresh token but no access token', function (done) {
+    var scope = nock('https://accounts.google.com').post('/o/oauth2/token').reply(200, { access_token: 'abc123', expires_in: 1 });
     var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     var google = new googleapis.GoogleApis();
     var drive = google.drive({ version: 'v2', auth: oauth2client });
-    var now = (new Date()).getTime();
+    var now = new Date().getTime();
     oauth2client.credentials = { refresh_token: 'abc' };
-    drive.files.get({ fileId: 'wat' }, function(err, result) {
+    drive.files.get({ fileId: 'wat' }, function (err, result) {
       var expiry_date = oauth2client.credentials.expiry_date;
       assert.notEqual(expiry_date, undefined);
       assert(expiry_date > now);
@@ -888,15 +635,13 @@ describe('OAuth2 client', function() {
     });
   });
 
-  describe('revokeCredentials()', function() {
-    it('should revoke credentials if access token present', function(done) {
-      var scope = nock('https://accounts.google.com')
-          .get('/o/oauth2/revoke?token=abc')
-          .reply(200, { success: true });
+  describe('revokeCredentials()', function () {
+    it('should revoke credentials if access token present', function (done) {
+      var scope = nock('https://accounts.google.com').get('/o/oauth2/revoke?token=abc').reply(200, { success: true });
       var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
       var google = new googleapis.GoogleApis();
       oauth2client.credentials = { access_token: 'abc', refresh_token: 'abc' };
-      oauth2client.revokeCredentials(function(err, result) {
+      oauth2client.revokeCredentials(function (err, result) {
         assert.equal(err, null);
         assert.equal(result.success, true);
         assert.equal(JSON.stringify(oauth2client.credentials), '{}');
@@ -905,11 +650,11 @@ describe('OAuth2 client', function() {
       });
     });
 
-    it('should clear credentials and return error if no access token to revoke', function(done) {
+    it('should clear credentials and return error if no access token to revoke', function (done) {
       var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
       var google = new googleapis.GoogleApis();
       oauth2client.credentials = { refresh_token: 'abc' };
-      oauth2client.revokeCredentials(function(err, result) {
+      oauth2client.revokeCredentials(function (err, result) {
         assert.equal(err.message, 'No access token to revoke.');
         assert.equal(result, null);
         assert.equal(JSON.stringify(oauth2client.credentials), '{}');
@@ -918,16 +663,14 @@ describe('OAuth2 client', function() {
     });
   });
 
-  describe('getToken()', function() {
-    it('should return expiry_date', function(done) {
-      var now = (new Date()).getTime();
-      var scope = nock('https://accounts.google.com')
-          .post('/o/oauth2/token')
-          .reply(200, { access_token: 'abc', refresh_token: '123', expires_in: 10 });
+  describe('getToken()', function () {
+    it('should return expiry_date', function (done) {
+      var now = new Date().getTime();
+      var scope = nock('https://accounts.google.com').post('/o/oauth2/token').reply(200, { access_token: 'abc', refresh_token: '123', expires_in: 10 });
       var oauth2client = new googleapis.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-      oauth2client.getToken('code here', function(err, tokens) {
-        assert(tokens.expiry_date > now + (10 * 1000));
-        assert(tokens.expiry_date < now + (15 * 1000));
+      oauth2client.getToken('code here', function (err, tokens) {
+        assert(tokens.expiry_date > now + 10 * 1000);
+        assert(tokens.expiry_date < now + 15 * 1000);
         scope.done();
         done();
       });

@@ -1,4 +1,11 @@
-import ext_assert from "assert";
+'use strict';
+
+var _assert = require('assert');
+
+var _assert2 = _interopRequireDefault(_assert);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -17,15 +24,15 @@ import ext_assert from "assert";
 
 'use strict';
 
-var assert = ext_assert;
+var assert = _assert2.default;
 var googleapis = require('../lib/googleapis.js');
 var google, drive, authClient, OAuth2;
 
-describe('API key', function() {
+describe('API key', function () {
 
   function noop() {}
 
-  beforeEach(function() {
+  beforeEach(function () {
     google = new googleapis.GoogleApis();
     OAuth2 = google.auth.OAuth2;
     authClient = new OAuth2('CLIENT_ID', 'CLIENT_SECRET', 'REDIRECT_URL');
@@ -33,7 +40,7 @@ describe('API key', function() {
     drive = google.drive('v2');
   });
 
-  it('should include auth APIKEY as key=<APIKEY>', function() {
+  it('should include auth APIKEY as key=<APIKEY>', function () {
     var req = drive.files.get({
       fileId: '123',
       auth: 'APIKEY'
@@ -41,7 +48,7 @@ describe('API key', function() {
     assert.equal(req.uri.query, 'key=APIKEY');
   });
 
-  it('should properly escape params E.g. API KEY to API%20KEY', function() {
+  it('should properly escape params E.g. API KEY to API%20KEY', function () {
     var req = drive.files.get({
       fileId: '123',
       auth: 'API KEY'
@@ -49,7 +56,7 @@ describe('API key', function() {
     assert.equal(req.uri.query, 'key=API%20KEY');
   });
 
-  it('should use key param over auth apikey param if both provided and', function() {
+  it('should use key param over auth apikey param if both provided and', function () {
     var req = drive.files.get({
       fileId: '123',
       auth: 'API KEY',
@@ -58,7 +65,7 @@ describe('API key', function() {
     assert.equal(req.uri.query, 'key=abc123');
   });
 
-  it('should set API key parameter if it is presented', function() {
+  it('should set API key parameter if it is presented', function () {
     var req = google.urlshortener('v1').url.list({ auth: 'YOUR API KEY' }, noop);
     assert.equal(req.uri.href.indexOf('key=YOUR%20API%20KEY') > 0, true);
   });
