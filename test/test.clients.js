@@ -1,3 +1,5 @@
+import ext_assert_assert from "assert";
+import ext_fs_fs from "fs";
 /**
  * Copyright 2013 Google Inc. All Rights Reserved.
  *
@@ -16,47 +18,43 @@
 
 'use strict';
 
-var assert = require('assert');
-var fs = require('fs');
-var googleapis = require('../lib/googleapis.js');
-
 describe('Clients', function() {
 
   it('should create request helpers according to the resource on discovery API response', function() {
     var plus = googleapis.plus('v1');
-    assert.equal(typeof plus.people.get, 'function');
-    assert.equal(typeof plus.activities.search, 'function');
-    assert.equal(typeof plus.comments.list, 'function');
+    ext_assert_assert.equal(typeof plus.people.get, 'function');
+    ext_assert_assert.equal(typeof plus.activities.search, 'function');
+    ext_assert_assert.equal(typeof plus.comments.list, 'function');
   });
 
   it('should be able to gen top level methods', function() {
-    assert.equal(typeof googleapis.oauth2('v2').tokeninfo, 'function');
-    assert.equal(typeof googleapis.freebase('v1').reconcile, 'function');
+    ext_assert_assert.equal(typeof googleapis.oauth2('v2').tokeninfo, 'function');
+    ext_assert_assert.equal(typeof googleapis.freebase('v1').reconcile, 'function');
   });
 
   it('should be able to gen top level methods and resources', function() {
     var oauth2 = googleapis.oauth2('v2');
-    assert.equal(typeof oauth2.tokeninfo, 'function');
-    assert.equal(typeof oauth2.userinfo, 'object');
+    ext_assert_assert.equal(typeof oauth2.tokeninfo, 'function');
+    ext_assert_assert.equal(typeof oauth2.userinfo, 'object');
   });
 
   it('should be able to gen nested resources and methods', function() {
     var oauth2 = googleapis.oauth2('v2');
-    assert.equal(typeof oauth2.userinfo, 'object');
-    assert.equal(typeof oauth2.userinfo.v2, 'object');
-    assert.equal(typeof oauth2.userinfo.v2.me, 'object');
-    assert.equal(typeof oauth2.userinfo.v2.me.get, 'function');
+    ext_assert_assert.equal(typeof oauth2.userinfo, 'object');
+    ext_assert_assert.equal(typeof oauth2.userinfo.v2, 'object');
+    ext_assert_assert.equal(typeof oauth2.userinfo.v2.me, 'object');
+    ext_assert_assert.equal(typeof oauth2.userinfo.v2.me.get, 'function');
   });
 
   it('should be able to require all api files without error', function() {
     function getFiles(dir, files_) {
       files_ = files_ || [];
       if (typeof files_ === 'undefined') files_ = [];
-      var files = fs.readdirSync(dir);
+      var files = ext_fs_fs.readdirSync(dir);
       for (var i in files) {
           if (!files.hasOwnProperty(i)) continue;
           var name = dir + '/' + files[i];
-          if (fs.statSync(name).isDirectory()) {
+          if (ext_fs_fs.statSync(name).isDirectory()) {
               getFiles(name, files_);
           } else {
               files_.push(name);
@@ -67,7 +65,7 @@ describe('Clients', function() {
 
     var api_files = getFiles(__dirname + '/../apis');
 
-    assert.doesNotThrow(function() {
+    ext_assert_assert.doesNotThrow(function() {
       for (var i in api_files) {
         var obj = require(api_files[i]);
       }

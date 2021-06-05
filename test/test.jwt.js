@@ -1,3 +1,5 @@
+import ext_assert_assert from "assert";
+import ext_nock_nock from "nock";
 /**
  * Copyright 2013 Google Inc. All Rights Reserved.
  *
@@ -16,11 +18,7 @@
 
 'use strict';
 
-var assert = require('assert');
-var googleapis = require('../lib/googleapis.js');
-var nock = require('nock');
-
-nock.disableNetConnect();
+ext_nock_nock.disableNetConnect();
 
 describe('JWT auth client', function() {
 
@@ -32,10 +30,10 @@ describe('JWT auth client', function() {
         ['http://bar', 'http://foo'],
         'bar@subjectaccount.com');
     jwt.GAPI = function(opts, callback) {
-      assert.equal('foo@serviceaccount.com', opts.iss);
-      assert.equal('/path/to/key.pem', opts.keyFile);
-      assert.equal('http://bar http://foo', opts.scope);
-      assert.equal('bar@subjectaccount.com', opts.sub);
+      ext_assert_assert.equal('foo@serviceaccount.com', opts.iss);
+      ext_assert_assert.equal('/path/to/key.pem', opts.keyFile);
+      ext_assert_assert.equal('http://bar http://foo', opts.scope);
+      ext_assert_assert.equal('bar@subjectaccount.com', opts.sub);
       setTimeout(function() {
         callback(null);
       }, 0);
@@ -46,8 +44,8 @@ describe('JWT auth client', function() {
       };
     };
     jwt.authorize(function() {
-      assert.equal('initial-access-token', jwt.credentials.access_token);
-      assert.equal('jwt-placeholder', jwt.credentials.refresh_token);
+      ext_assert_assert.equal('initial-access-token', jwt.credentials.access_token);
+      ext_assert_assert.equal('jwt-placeholder', jwt.credentials.refresh_token);
       done();
     });
   });
@@ -61,7 +59,7 @@ describe('JWT auth client', function() {
         'bar@subjectaccount.com');
 
     jwt.GAPI = function(opts, callback) {
-      assert.equal('http://foo', opts.scope);
+      ext_assert_assert.equal('http://foo', opts.scope);
       done();
     };
 
@@ -86,7 +84,7 @@ describe('JWT auth client', function() {
     };
 
     jwt.request({}, function() {
-      assert.equal('abc123', jwt.credentials.access_token);
+      ext_assert_assert.equal('abc123', jwt.credentials.access_token);
       done();
     });
   });
@@ -111,13 +109,13 @@ describe('JWT auth client', function() {
     };
 
     jwt.request({}, function() {
-      assert.equal('abc123', jwt.credentials.access_token);
+      ext_assert_assert.equal('abc123', jwt.credentials.access_token);
       done();
     });
   });
 
   it('should not refresh if not expired', function(done) {
-    var scope = nock('https://accounts.google.com')
+    var scope = ext_nock_nock('https://accounts.google.com')
         .log(console.log)
         .post('/o/oauth2/token', '*')
         .reply(200, { access_token: 'abc123', expires_in: 10000 });
@@ -135,15 +133,15 @@ describe('JWT auth client', function() {
     };
 
     jwt.request({}, function() {
-      assert.equal('initial-access-token', jwt.credentials.access_token);
-      assert.equal(false, scope.isDone());
-      nock.cleanAll();
+      ext_assert_assert.equal('initial-access-token', jwt.credentials.access_token);
+      ext_assert_assert.equal(false, scope.isDone());
+      ext_nock_nock.cleanAll();
       done();
     });
   });
 
   it('should assume access token is not expired', function(done) {
-    var scope = nock('https://accounts.google.com')
+    var scope = ext_nock_nock('https://accounts.google.com')
         .log(console.log)
         .post('/o/oauth2/token', '*')
         .reply(200, { access_token: 'abc123', expires_in: 10000 });
@@ -160,9 +158,9 @@ describe('JWT auth client', function() {
     };
 
     jwt.request({}, function() {
-      assert.equal('initial-access-token', jwt.credentials.access_token);
-      assert.equal(false, scope.isDone());
-      nock.cleanAll();
+      ext_assert_assert.equal('initial-access-token', jwt.credentials.access_token);
+      ext_assert_assert.equal(false, scope.isDone());
+      ext_nock_nock.cleanAll();
       done();
     });
   });

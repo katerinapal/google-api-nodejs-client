@@ -1,3 +1,5 @@
+import ext_assert_assert from "assert";
+import ext_nock_nock from "nock";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,112 +18,108 @@
 
 'use strict';
 
-var assert = require('assert');
-var google = require('../lib/googleapis.js');
-var nock = require('nock');
-
-nock.disableNetConnect();
+ext_nock_nock.disableNetConnect();
 
 describe('drive:v2', function() {
 
   function noop() {}
 
   it('should exist', function(done) {
-    assert.notEqual(typeof google.drive, null);
+    ext_assert_assert.notEqual(typeof googleapis_google.drive, null);
     done();
   });
 
   it('should be a function', function(done) {
-    assert.equal(typeof google.drive, 'function');
+    ext_assert_assert.equal(typeof googleapis_google.drive, 'function');
     done();
   });
 
   it('should create a drive object', function(done) {
-    var drive = google.drive('v2');
-    assert.notEqual(typeof drive, 'undefined');
+    var drive = googleapis_google.drive('v2');
+    ext_assert_assert.notEqual(typeof drive, 'undefined');
     done();
   });
 
   it('should be frozen (immutable)', function(done) {
-    var drive = google.drive('v2');
-    assert.equal(Object.isFrozen(drive), true);
+    var drive = googleapis_google.drive('v2');
+    ext_assert_assert.equal(Object.isFrozen(drive), true);
     done();
   });
 
   describe('.files', function() {
     it('should exist', function(done) {
-      var drive = google.drive('v2');
-      assert.notEqual(typeof drive.files, 'undefined');
+      var drive = googleapis_google.drive('v2');
+      ext_assert_assert.notEqual(typeof drive.files, 'undefined');
       done();
     });
 
     it('should be an object', function(done) {
-      var drive = google.drive('v2');
-      assert.equal(typeof drive.files, 'object');
+      var drive = googleapis_google.drive('v2');
+      ext_assert_assert.equal(typeof drive.files, 'object');
       done();
     });
 
     describe('.insert', function() {
       it('should exist', function(done) {
-        var drive = google.drive('v2');
-        assert.notEqual(typeof drive.files.insert, 'undefined');
+        var drive = googleapis_google.drive('v2');
+        ext_assert_assert.notEqual(typeof drive.files.insert, 'undefined');
         done();
       });
 
       it('should be a function', function(done) {
-        var drive = google.drive('v2');
-        assert.equal(typeof drive.files.insert, 'function');
+        var drive = googleapis_google.drive('v2');
+        ext_assert_assert.equal(typeof drive.files.insert, 'function');
         done();
       });
 
       it('should return a Request object', function(done) {
-        var drive = google.drive('v2');
+        var drive = googleapis_google.drive('v2');
         var req = drive.files.insert({}, noop);
-        assert.equal(req.constructor.name, 'Request');
+        ext_assert_assert.equal(req.constructor.name, 'Request');
         done();
       });
     });
 
     describe('.get', function() {
       it('should exist', function() {
-        var drive = google.drive('v2');
-        assert.notEqual(typeof drive.files.get, 'undefined');
+        var drive = googleapis_google.drive('v2');
+        ext_assert_assert.notEqual(typeof drive.files.get, 'undefined');
       });
 
       it('should be a function', function() {
-        var drive = google.drive('v2');
-        assert.equal(typeof drive.files.get, 'function');
+        var drive = googleapis_google.drive('v2');
+        ext_assert_assert.equal(typeof drive.files.get, 'function');
       });
 
       it('should return a Request object', function() {
-        var drive = google.drive('v2');
+        var drive = googleapis_google.drive('v2');
         var req = drive.files.get({ fileId: '123' }, noop);
-        assert.equal(req.constructor.name, 'Request');
+        ext_assert_assert.equal(req.constructor.name, 'Request');
       });
     });
   });
 
   describe('._options', function() {
     it('should exist', function() {
-      var drive = google.drive('v2');
-      assert.notEqual(typeof drive._options, 'undefined');
+      var drive = googleapis_google.drive('v2');
+      ext_assert_assert.notEqual(typeof drive._options, 'undefined');
     });
 
     it('should be an object', function() {
-      var drive = google.drive('v2');
-      assert.equal(typeof drive._options, 'object');
+      var drive = googleapis_google.drive('v2');
+      ext_assert_assert.equal(typeof drive._options, 'object');
     });
   });
 
   describe('.files.list()', function() {
     it('should not return missing param error', function(done) {
       Array.prototype.lol = function() {};
-      var scope = nock('https://www.googleapis.com')
+      var scope = ext_nock_nock('https://www.googleapis.com')
         .get('/drive/v2/files?q=hello')
         .reply(200);
-      var drive = google.drive('v2');
+      var drive = googleapis_google.drive('v2');
       var req = drive.files.list({ q: 'hello' }, function(err, body) {
-        assert.equal(err, null);
+        ext_assert_assert.equal(err, null);
         done();
       });
     });
