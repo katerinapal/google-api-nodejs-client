@@ -1,3 +1,5 @@
+import ext_assert_assert from "assert";
+import ext_nock_nock from "nock";
 /**
  * Copyright 2013 Google Inc. All Rights Reserved.
  *
@@ -16,11 +18,7 @@
 
 'use strict';
 
-var assert = require('assert');
-var googleapis = require('../lib/googleapis.js');
-var nock = require('nock');
-
-nock.disableNetConnect();
+ext_nock_nock.disableNetConnect();
 
 describe('Urlshortener', function() {
 
@@ -32,8 +30,8 @@ describe('Urlshortener', function() {
     var obj = { longUrl: 'http://someurl...' };
 
     var req = urlshortener.url.insert(obj, noop);
-    assert.equal(req.uri.href, 'https://www.googleapis.com/urlshortener/v1/url?longUrl=http%3A%2F%2Fsomeurl...');
-    assert.equal(req.method, 'POST');
+    ext_assert_assert.equal(req.uri.href, 'https://www.googleapis.com/urlshortener/v1/url?longUrl=http%3A%2F%2Fsomeurl...');
+    ext_assert_assert.equal(req.method, 'POST');
   });
 
   it('should generate valid payload if any params are given', function() {
@@ -41,23 +39,23 @@ describe('Urlshortener', function() {
     var urlshortener = google.urlshortener('v1');
     var params = { shortUrl: 'a' };
     var req = urlshortener.url.get(params, noop);
-    assert.equal(req.uri.href, 'https://www.googleapis.com/urlshortener/v1/url?shortUrl=a');
-    assert.equal(req.method, 'GET');
+    ext_assert_assert.equal(req.uri.href, 'https://www.googleapis.com/urlshortener/v1/url?shortUrl=a');
+    ext_assert_assert.equal(req.method, 'GET');
   });
 
   it('should return a single response object for single requests', function(done) {
     var google = new googleapis.GoogleApis();
-    var scope = nock('https://www.googleapis.com')
+    var scope = ext_nock_nock('https://www.googleapis.com')
         .post('/urlshortener/v1/url')
         .replyWithFile(200, __dirname + '/fixtures/urlshort-insert-res.json');
     var urlshortener = google.urlshortener('v1');
     var obj = { longUrl: 'http://google.com/' };
     urlshortener.url.insert({ resource: obj }, function(err, result) {
-      assert.equal(err, null);
-      assert.notEqual(result, null);
-      assert.notEqual(result.kind, null);
-      assert.notEqual(result.id, null);
-      assert.equal(result.longUrl, 'http://google.com/');
+      ext_assert_assert.equal(err, null);
+      ext_assert_assert.notEqual(result, null);
+      ext_assert_assert.notEqual(result.kind, null);
+      ext_assert_assert.notEqual(result.id, null);
+      ext_assert_assert.equal(result.longUrl, 'http://google.com/');
       scope.done();
       done(err);
     });

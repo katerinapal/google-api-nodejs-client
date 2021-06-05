@@ -1,3 +1,5 @@
+import ext_assert_assert from "assert";
+import { DefaultTransporter as transporters_DefaultTransporter } from "../lib/transporters";
 /**
  * Copyright 2013 Google Inc. All Rights Reserved.
  *
@@ -16,21 +18,17 @@
 
 'use strict';
 
-var assert = require('assert');
-var googleapis = require('../lib/googleapis.js');
-var DefaultTransporter = require('../lib/transporters');
-
 describe('Transporters', function() {
 
   function noop() {}
 
   var defaultUserAgentRE = 'google-api-nodejs-client/\\d+\.\\d+\.\\d+';
-  var transporter = new DefaultTransporter();
+  var transporter = new transporters_DefaultTransporter();
 
   it('should set default client user agent if none is set', function() {
     var opts = transporter.configure({});
     var re = new RegExp(defaultUserAgentRE);
-    assert(re.test(opts.headers['User-Agent']));
+    ext_assert_assert(re.test(opts.headers['User-Agent']));
   });
 
   it('should append default client user agent to the existing user agent', function() {
@@ -39,33 +37,30 @@ describe('Transporters', function() {
       headers: { 'User-Agent': applicationName }
     });
     var re = new RegExp(applicationName + ' ' + defaultUserAgentRE);
-    assert(re.test(opts.headers['User-Agent']));
+    ext_assert_assert(re.test(opts.headers['User-Agent']));
   });
 
   it('should automatically add content-type for POST requests', function() {
-    var google = require('../lib/googleapis');
-    var drive = google.drive('v2');
+    var drive = googleapis_google.drive('v2');
     var req = drive.comments.insert({
         fileId: 'a'
     }, noop);
-    assert.equal(req.headers['content-type'], 'application/json');
+    ext_assert_assert.equal(req.headers['content-type'], 'application/json');
   });
 
   it('should not add body for GET requests', function() {
-    var google = require('../lib/googleapis');
-    var drive = google.drive('v2');
+    var drive = googleapis_google.drive('v2');
     var req = drive.files.list(noop);
-    assert.equal(req.headers['content-type'], null);
-    assert.equal(req.body, null);
+    ext_assert_assert.equal(req.headers['content-type'], null);
+    ext_assert_assert.equal(req.body, null);
   });
 
   it('should not add body for DELETE requests', function() {
-    var google = require('../lib/googleapis');
-    var drive = google.drive('v2');
+    var drive = googleapis_google.drive('v2');
     var req = drive.files.delete({
         fileId: 'test'
     }, noop);
-    assert.equal(req.headers['content-type'], null);
-    assert.equal(req.body, null);
+    ext_assert_assert.equal(req.headers['content-type'], null);
+    ext_assert_assert.equal(req.body, null);
   });
 });
