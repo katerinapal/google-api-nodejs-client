@@ -1,3 +1,5 @@
+var mod_Licensing = Licensing;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -255,7 +256,13 @@ function Licensing(options) {
 }
 
 /**
- * Exports Licensing object
- * @type Licensing
+ * Enterprise License Manager API
+ *
+ * @classdesc Licensing API to view and manage license for your domain.
+ * @namespace licensing
+ * @version  v1
+ * @variation v1
+ * @this Licensing
+ * @param {object=} options Options for Licensing
  */
-module.exports = Licensing;
+export { mod_Licensing as Licensing };

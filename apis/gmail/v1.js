@@ -1,3 +1,5 @@
+var mod_Gmail = Gmail;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -941,7 +942,13 @@ function Gmail(options) {
 }
 
 /**
- * Exports Gmail object
- * @type Gmail
+ * Gmail API
+ *
+ * @classdesc The Gmail REST API.
+ * @namespace gmail
+ * @version  v1
+ * @variation v1
+ * @this Gmail
+ * @param {object=} options Options for Gmail
  */
-module.exports = Gmail;
+export { mod_Gmail as Gmail };

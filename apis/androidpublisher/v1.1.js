@@ -1,3 +1,5 @@
+var mod_Androidpublisher = Androidpublisher;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -134,7 +135,13 @@ function Androidpublisher(options) {
 }
 
 /**
- * Exports Androidpublisher object
- * @type Androidpublisher
+ * Google Play Android Developer API
+ *
+ * @classdesc Lets Android application developers access their Google Play accounts.
+ * @namespace androidpublisher
+ * @version  v1.1
+ * @variation v1.1
+ * @this Androidpublisher
+ * @param {object=} options Options for Androidpublisher
  */
-module.exports = Androidpublisher;
+export { mod_Androidpublisher as Androidpublisher };

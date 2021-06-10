@@ -1,3 +1,5 @@
+var mod_Coordinate = Coordinate;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -419,7 +420,13 @@ function Coordinate(options) {
 }
 
 /**
- * Exports Coordinate object
- * @type Coordinate
+ * Google Maps Coordinate API
+ *
+ * @classdesc Lets you view and manage jobs in a Coordinate team.
+ * @namespace coordinate
+ * @version  v1
+ * @variation v1
+ * @this Coordinate
+ * @param {object=} options Options for Coordinate
  */
-module.exports = Coordinate;
+export { mod_Coordinate as Coordinate };

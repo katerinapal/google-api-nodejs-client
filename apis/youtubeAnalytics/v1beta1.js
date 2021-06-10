@@ -1,3 +1,5 @@
+var mod_Youtubeanalytics = Youtubeanalytics;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -138,7 +139,13 @@ function Youtubeanalytics(options) {
 }
 
 /**
- * Exports Youtubeanalytics object
- * @type Youtubeanalytics
+ * YouTube Analytics API
+ *
+ * @classdesc Retrieve your YouTube Analytics reports.
+ * @namespace youtubeAnalytics
+ * @version  v1beta1
+ * @variation v1beta1
+ * @this Youtubeanalytics
+ * @param {object=} options Options for Youtubeanalytics
  */
-module.exports = Youtubeanalytics;
+export { mod_Youtubeanalytics as Youtubeanalytics };

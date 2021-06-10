@@ -1,3 +1,5 @@
+import { Generator as generator_Generator } from "../lib/generator";
+import ext_rimraf_rimraf from "rimraf";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,14 +18,12 @@
 
 'use strict';
 
-var Generator = require('../lib/generator');
-var rimraf = require('rimraf');
 var debug = false;
 // constructors
-var gen = new Generator({ debug: debug, includePrivate: false });
+var gen = new generator_Generator({ debug: debug, includePrivate: false });
 
 console.log('Removing old APIs...');
-rimraf(__dirname + '/../apis', function(err) {
+ext_rimraf_rimraf(__dirname + '/../apis', function(err) {
   if (err) {
     throw err;
   }

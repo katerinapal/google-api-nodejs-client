@@ -1,3 +1,5 @@
+var mod_Oauth2 = Oauth2;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -122,7 +123,13 @@ function Oauth2(options) {
 }
 
 /**
- * Exports Oauth2 object
- * @type Oauth2
+ * Google OAuth2 API
+ *
+ * @classdesc Lets you access OAuth2 protocol related APIs.
+ * @namespace oauth2
+ * @version  v1
+ * @variation v1
+ * @this Oauth2
+ * @param {object=} options Options for Oauth2
  */
-module.exports = Oauth2;
+export { mod_Oauth2 as Oauth2 };

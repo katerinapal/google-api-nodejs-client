@@ -1,3 +1,5 @@
+var mod_Urlshortener = Urlshortener;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -121,7 +122,13 @@ function Urlshortener(options) {
 }
 
 /**
- * Exports Urlshortener object
- * @type Urlshortener
+ * URL Shortener API
+ *
+ * @classdesc Lets you create, inspect, and manage goo.gl short URLs
+ * @namespace urlshortener
+ * @version  v1
+ * @variation v1
+ * @this Urlshortener
+ * @param {object=} options Options for Urlshortener
  */
-module.exports = Urlshortener;
+export { mod_Urlshortener as Urlshortener };

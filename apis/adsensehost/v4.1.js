@@ -1,3 +1,5 @@
+var mod_Adsensehost = Adsensehost;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -844,7 +845,13 @@ function Adsensehost(options) {
 }
 
 /**
- * Exports Adsensehost object
- * @type Adsensehost
+ * AdSense Host API
+ *
+ * @classdesc Gives AdSense Hosts access to report generation, ad code generation, and publisher management capabilities.
+ * @namespace adsensehost
+ * @version  v4.1
+ * @variation v4.1
+ * @this Adsensehost
+ * @param {object=} options Options for Adsensehost
  */
-module.exports = Adsensehost;
+export { mod_Adsensehost as Adsensehost };

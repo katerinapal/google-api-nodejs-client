@@ -1,3 +1,5 @@
+var mod_Reseller = Reseller;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -395,7 +396,13 @@ function Reseller(options) {
 }
 
 /**
- * Exports Reseller object
- * @type Reseller
+ * Enterprise Apps Reseller API
+ *
+ * @classdesc Lets you create and manage your customers and their subscriptions.
+ * @namespace reseller
+ * @version  v1sandbox
+ * @variation v1sandbox
+ * @this Reseller
+ * @param {object=} options Options for Reseller
  */
-module.exports = Reseller;
+export { mod_Reseller as Reseller };

@@ -1,3 +1,5 @@
+var mod_Appsactivity = Appsactivity;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -72,7 +73,13 @@ function Appsactivity(options) {
 }
 
 /**
- * Exports Appsactivity object
- * @type Appsactivity
+ * Google Apps Activity API
+ *
+ * @classdesc Provides a historical view of activity.
+ * @namespace appsactivity
+ * @version  v1
+ * @variation v1
+ * @this Appsactivity
+ * @param {object=} options Options for Appsactivity
  */
-module.exports = Appsactivity;
+export { mod_Appsactivity as Appsactivity };

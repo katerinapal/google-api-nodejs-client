@@ -1,3 +1,5 @@
+var mod_Storage = Storage;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -771,7 +772,13 @@ function Storage(options) {
 }
 
 /**
- * Exports Storage object
- * @type Storage
+ * Cloud Storage API
+ *
+ * @classdesc Lets you store and retrieve potentially-large, immutable data objects.
+ * @namespace storage
+ * @version  v1beta1
+ * @variation v1beta1
+ * @this Storage
+ * @param {object=} options Options for Storage
  */
-module.exports = Storage;
+export { mod_Storage as Storage };

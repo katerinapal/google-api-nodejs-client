@@ -1,3 +1,5 @@
+import ext_assert_assert from "assert";
+import { google as googleapis_google } from "../lib/googleapis.js";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,9 +18,7 @@
 
 'use strict';
 
-var assert = require('assert');
-var googleapis = require('../lib/googleapis.js');
-var OAuth2 = googleapis.auth.OAuth2;
+var OAuth2 = googleapis_google.auth.OAuth2;
 var google, drive, authClient;
 
 describe('Options', function() {
@@ -26,53 +26,53 @@ describe('Options', function() {
   function noop() {}
 
   beforeEach(function() {
-    google = new googleapis.GoogleApis();
+    google = new googleapis_google.GoogleApis();
     drive = google.drive('v2');
 
   });
 
   it('should be a function', function() {
-    assert.equal(typeof google.options, 'function');
+    ext_assert_assert.equal(typeof google.options, 'function');
   });
 
   it('should expose _options', function() {
     google.options({ hello: 'world' });
-    assert.equal(JSON.stringify(google._options), JSON.stringify({ hello: 'world' }));
+    ext_assert_assert.equal(JSON.stringify(google._options), JSON.stringify({ hello: 'world' }));
   });
 
   it('should expose _options values', function() {
     google.options({ hello: 'world' });
-    assert.equal(google._options.hello, 'world');
+    ext_assert_assert.equal(google._options.hello, 'world');
   });
 
   it('should promote endpoint options over global options', function() {
     google.options({ hello: 'world' });
     var drive = google.drive({ version: 'v2', hello: 'changed' });
     var req = drive.files.get({ fileId: '123' }, noop);
-    assert.equal(req.hello, 'changed');
+    ext_assert_assert.equal(req.hello, 'changed');
   });
 
   it('should promote auth apikey options on request basis', function() {
     google.options({ auth: 'apikey1' });
     var drive = google.drive({ version: 'v2', auth: 'apikey2' });
     var req = drive.files.get({ auth: 'apikey3', fileId: 'woot' }, noop);
-    assert.equal(req.url.query, 'key=apikey3');
+    ext_assert_assert.equal(req.url.query, 'key=apikey3');
   });
 
   it('should apply google options to request object like proxy', function() {
     google.options({ proxy: 'http://proxy.example.com' });
     var drive = google.drive({ version: 'v2', auth: 'apikey2' });
     var req = drive.files.get({ auth: 'apikey3', fileId: 'woot' }, noop);
-    assert.equal(req.proxy.host, 'proxy.example.com');
-    assert.equal(req.proxy.protocol, 'http:');
+    ext_assert_assert.equal(req.proxy.host, 'proxy.example.com');
+    ext_assert_assert.equal(req.proxy.protocol, 'http:');
   });
 
   it('should apply endpoint options to request object like proxy', function() {
     var drive = google.drive({ version: 'v2', auth: 'apikey2', proxy: 'http://proxy.example.com' });
     var req = drive.files.get({ auth: 'apikey3', fileId: 'woot' }, noop);
-    assert.equal(req.proxy.host, 'proxy.example.com');
-    assert.equal(req.proxy.protocol, 'http:');
-    assert.equal(req.uri.query, 'key=apikey3');
+    ext_assert_assert.equal(req.proxy.host, 'proxy.example.com');
+    ext_assert_assert.equal(req.proxy.protocol, 'http:');
+    ext_assert_assert.equal(req.uri.query, 'key=apikey3');
   });
 
   it('should apply endpoint options like proxy to oauth transporter', function() {
@@ -80,8 +80,8 @@ describe('Options', function() {
     authClient.setCredentials({ access_token: 'abc' });
     var drive = google.drive({ version: 'v2', auth: 'apikey2', proxy: 'http://proxy.example.com' });
     var req = drive.files.get({ auth: authClient, fileId: 'woot' }, noop);
-    assert.equal(req.proxy.host, 'proxy.example.com');
-    assert.equal(req.proxy.protocol, 'http:');
-    assert.equal(req.headers['Authorization'], 'Bearer abc');
+    ext_assert_assert.equal(req.proxy.host, 'proxy.example.com');
+    ext_assert_assert.equal(req.proxy.protocol, 'http:');
+    ext_assert_assert.equal(req.headers['Authorization'], 'Bearer abc');
   });
 });

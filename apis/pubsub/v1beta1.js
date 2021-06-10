@@ -1,3 +1,5 @@
+var mod_Pubsub = Pubsub;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -394,7 +395,13 @@ function Pubsub(options) {
 }
 
 /**
- * Exports Pubsub object
- * @type Pubsub
+ * Cloud Pub/Sub API
+ *
+ * @classdesc Provides reliable, many-to-many, asynchronous messaging between applications.
+ * @namespace pubsub
+ * @version  v1beta1
+ * @variation v1beta1
+ * @this Pubsub
+ * @param {object=} options Options for Pubsub
  */
-module.exports = Pubsub;
+export { mod_Pubsub as Pubsub };

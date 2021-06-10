@@ -1,3 +1,5 @@
+var mod_Tasks = Tasks;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -457,7 +458,13 @@ function Tasks(options) {
 }
 
 /**
- * Exports Tasks object
- * @type Tasks
+ * Tasks API
+ *
+ * @classdesc Lets you manage your tasks and task lists.
+ * @namespace tasks
+ * @version  v1
+ * @variation v1
+ * @this Tasks
+ * @param {object=} options Options for Tasks
  */
-module.exports = Tasks;
+export { mod_Tasks as Tasks };

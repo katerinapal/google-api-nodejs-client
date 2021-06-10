@@ -1,3 +1,5 @@
+var mod_Admin = Admin;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -1876,7 +1877,13 @@ function Admin(options) {
 }
 
 /**
- * Exports Admin object
- * @type Admin
+ * Admin Directory API
+ *
+ * @classdesc The Admin SDK Directory API lets you view and manage enterprise resources such as users and groups, administrative notifications, security features, and more.
+ * @namespace admin
+ * @version  directory_v1
+ * @variation directory_v1
+ * @this Admin
+ * @param {object=} options Options for Admin
  */
-module.exports = Admin;
+export { mod_Admin as Admin };

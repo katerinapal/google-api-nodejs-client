@@ -1,3 +1,5 @@
+var mod_Plusdomains = Plusdomains;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -655,7 +656,13 @@ function Plusdomains(options) {
 }
 
 /**
- * Exports Plusdomains object
- * @type Plusdomains
+ * Google+ Domains API
+ *
+ * @classdesc The Google+ API enables developers to build on top of the Google+ platform.
+ * @namespace plusDomains
+ * @version  v1
+ * @variation v1
+ * @this Plusdomains
+ * @param {object=} options Options for Plusdomains
  */
-module.exports = Plusdomains;
+export { mod_Plusdomains as Plusdomains };

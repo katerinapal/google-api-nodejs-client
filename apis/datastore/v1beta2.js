@@ -1,3 +1,5 @@
+var mod_Datastore = Datastore;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -214,7 +215,13 @@ function Datastore(options) {
 }
 
 /**
- * Exports Datastore object
- * @type Datastore
+ * Google Cloud Datastore API
+ *
+ * @classdesc API for accessing Google Cloud Datastore.
+ * @namespace datastore
+ * @version  v1beta2
+ * @variation v1beta2
+ * @this Datastore
+ * @param {object=} options Options for Datastore
  */
-module.exports = Datastore;
+export { mod_Datastore as Datastore };

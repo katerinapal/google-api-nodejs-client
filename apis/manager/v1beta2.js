@@ -1,3 +1,5 @@
+var mod_Manager = Manager;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -282,7 +283,13 @@ function Manager(options) {
 }
 
 /**
- * Exports Manager object
- * @type Manager
+ * Deployment Manager API
+ *
+ * @classdesc The Deployment Manager API allows users to declaratively configure, deploy and run complex solutions on the Google Cloud Platform.
+ * @namespace manager
+ * @version  v1beta2
+ * @variation v1beta2
+ * @this Manager
+ * @param {object=} options Options for Manager
  */
-module.exports = Manager;
+export { mod_Manager as Manager };

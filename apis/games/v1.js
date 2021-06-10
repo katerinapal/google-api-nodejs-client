@@ -1,3 +1,5 @@
+var mod_Games = Games;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -1610,7 +1611,13 @@ function Games(options) {
 }
 
 /**
- * Exports Games object
- * @type Games
+ * Google Play Game Services API
+ *
+ * @classdesc The API for Google Play Game Services.
+ * @namespace games
+ * @version  v1
+ * @variation v1
+ * @this Games
+ * @param {object=} options Options for Games
  */
-module.exports = Games;
+export { mod_Games as Games };

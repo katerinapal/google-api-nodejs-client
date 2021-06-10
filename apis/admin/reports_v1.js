@@ -1,3 +1,5 @@
+var mod_Admin = Admin;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -218,7 +219,13 @@ function Admin(options) {
 }
 
 /**
- * Exports Admin object
- * @type Admin
+ * Admin Reports API
+ *
+ * @classdesc Allows the administrators of Google Apps customers to fetch reports about the usage, collaboration, security and risk for their users.
+ * @namespace admin
+ * @version  reports_v1
+ * @variation reports_v1
+ * @this Admin
+ * @param {object=} options Options for Admin
  */
-module.exports = Admin;
+export { mod_Admin as Admin };

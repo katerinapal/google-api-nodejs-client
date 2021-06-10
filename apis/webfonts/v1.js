@@ -1,3 +1,5 @@
+var mod_Webfonts = Webfonts;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -66,7 +67,13 @@ function Webfonts(options) {
 }
 
 /**
- * Exports Webfonts object
- * @type Webfonts
+ * Google Fonts Developer API
+ *
+ * @classdesc The Google Fonts Developer API.
+ * @namespace webfonts
+ * @version  v1
+ * @variation v1
+ * @this Webfonts
+ * @param {object=} options Options for Webfonts
  */
-module.exports = Webfonts;
+export { mod_Webfonts as Webfonts };

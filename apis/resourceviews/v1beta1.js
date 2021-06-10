@@ -1,3 +1,5 @@
+var mod_Resourceviews = Resourceviews;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -474,7 +475,13 @@ function Resourceviews(options) {
 }
 
 /**
- * Exports Resourceviews object
- * @type Resourceviews
+ * Resource Views API
+ *
+ * @classdesc The Resource View API allows users to create and manage logical sets of Google Compute Engine instances.
+ * @namespace resourceviews
+ * @version  v1beta1
+ * @variation v1beta1
+ * @this Resourceviews
+ * @param {object=} options Options for Resourceviews
  */
-module.exports = Resourceviews;
+export { mod_Resourceviews as Resourceviews };

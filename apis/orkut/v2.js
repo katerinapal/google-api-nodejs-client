@@ -1,3 +1,5 @@
+var mod_Orkut = Orkut;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -1136,7 +1137,13 @@ function Orkut(options) {
 }
 
 /**
- * Exports Orkut object
- * @type Orkut
+ * Orkut API
+ *
+ * @classdesc Lets you manage activities, comments and badges in Orkut. More stuff coming in time.
+ * @namespace orkut
+ * @version  v2
+ * @variation v2
+ * @this Orkut
+ * @param {object=} options Options for Orkut
  */
-module.exports = Orkut;
+export { mod_Orkut as Orkut };

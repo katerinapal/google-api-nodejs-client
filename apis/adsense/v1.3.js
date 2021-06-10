@@ -1,3 +1,5 @@
+var mod_Adsense = Adsense;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -1131,7 +1132,13 @@ function Adsense(options) {
 }
 
 /**
- * Exports Adsense object
- * @type Adsense
+ * AdSense Management API
+ *
+ * @classdesc Gives AdSense publishers access to their inventory and the ability to generate reports
+ * @namespace adsense
+ * @version  v1.3
+ * @variation v1.3
+ * @this Adsense
+ * @param {object=} options Options for Adsense
  */
-module.exports = Adsense;
+export { mod_Adsense as Adsense };

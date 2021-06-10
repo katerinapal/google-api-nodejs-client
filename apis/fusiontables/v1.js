@@ -1,3 +1,5 @@
+var mod_Fusiontables = Fusiontables;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -913,7 +914,13 @@ function Fusiontables(options) {
 }
 
 /**
- * Exports Fusiontables object
- * @type Fusiontables
+ * Fusion Tables API
+ *
+ * @classdesc API for working with Fusion Tables data.
+ * @namespace fusiontables
+ * @version  v1
+ * @variation v1
+ * @this Fusiontables
+ * @param {object=} options Options for Fusiontables
  */
-module.exports = Fusiontables;
+export { mod_Fusiontables as Fusiontables };

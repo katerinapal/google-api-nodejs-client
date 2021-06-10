@@ -1,3 +1,5 @@
+var mod_Gamesmanagement = Gamesmanagement;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -452,7 +453,13 @@ function Gamesmanagement(options) {
 }
 
 /**
- * Exports Gamesmanagement object
- * @type Gamesmanagement
+ * Google Play Game Services Management API
+ *
+ * @classdesc The Management API for Google Play Game Services.
+ * @namespace gamesManagement
+ * @version  v1management
+ * @variation v1management
+ * @this Gamesmanagement
+ * @param {object=} options Options for Gamesmanagement
  */
-module.exports = Gamesmanagement;
+export { mod_Gamesmanagement as Gamesmanagement };

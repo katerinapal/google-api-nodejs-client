@@ -1,3 +1,5 @@
+var mod_Books = Books;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -1347,7 +1348,13 @@ function Books(options) {
 }
 
 /**
- * Exports Books object
- * @type Books
+ * Books API
+ *
+ * @classdesc Lets you search for books and manage your Google Books library.
+ * @namespace books
+ * @version  v1
+ * @variation v1
+ * @this Books
+ * @param {object=} options Options for Books
  */
-module.exports = Books;
+export { mod_Books as Books };

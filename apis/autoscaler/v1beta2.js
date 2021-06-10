@@ -1,3 +1,5 @@
+var mod_Autoscaler = Autoscaler;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -320,7 +321,13 @@ function Autoscaler(options) {
 }
 
 /**
- * Exports Autoscaler object
- * @type Autoscaler
+ * Google Compute Engine Autoscaler API
+ *
+ * @classdesc The Google Compute Engine Autoscaler API provides autoscaling for groups of Cloud VMs.
+ * @namespace autoscaler
+ * @version  v1beta2
+ * @variation v1beta2
+ * @this Autoscaler
+ * @param {object=} options Options for Autoscaler
  */
-module.exports = Autoscaler;
+export { mod_Autoscaler as Autoscaler };

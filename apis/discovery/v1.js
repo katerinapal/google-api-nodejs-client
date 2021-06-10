@@ -1,3 +1,5 @@
+var mod_Discovery = Discovery;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -96,7 +97,13 @@ function Discovery(options) {
 }
 
 /**
- * Exports Discovery object
- * @type Discovery
+ * APIs Discovery Service
+ *
+ * @classdesc Lets you discover information about other Google APIs, such as what APIs are available, the resource and method details for each API.
+ * @namespace discovery
+ * @version  v1
+ * @variation v1
+ * @this Discovery
+ * @param {object=} options Options for Discovery
  */
-module.exports = Discovery;
+export { mod_Discovery as Discovery };

@@ -1,3 +1,5 @@
+var mod_Mirror = Mirror;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -745,7 +746,13 @@ function Mirror(options) {
 }
 
 /**
- * Exports Mirror object
- * @type Mirror
+ * Google Mirror API
+ *
+ * @classdesc API for interacting with Glass users via the timeline.
+ * @namespace mirror
+ * @version  v1
+ * @variation v1
+ * @this Mirror
+ * @param {object=} options Options for Mirror
  */
-module.exports = Mirror;
+export { mod_Mirror as Mirror };

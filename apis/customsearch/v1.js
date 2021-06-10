@@ -1,3 +1,5 @@
+var mod_Customsearch = Customsearch;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -98,7 +99,13 @@ function Customsearch(options) {
 }
 
 /**
- * Exports Customsearch object
- * @type Customsearch
+ * CustomSearch API
+ *
+ * @classdesc Lets you search over a website or collection of websites
+ * @namespace customsearch
+ * @version  v1
+ * @variation v1
+ * @this Customsearch
+ * @param {object=} options Options for Customsearch
  */
-module.exports = Customsearch;
+export { mod_Customsearch as Customsearch };

@@ -1,3 +1,5 @@
+var mod_Calendar = Calendar;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -1194,7 +1195,13 @@ function Calendar(options) {
 }
 
 /**
- * Exports Calendar object
- * @type Calendar
+ * Calendar API
+ *
+ * @classdesc Lets you manipulate events and other calendar data.
+ * @namespace calendar
+ * @version  v3
+ * @variation v3
+ * @this Calendar
+ * @param {object=} options Options for Calendar
  */
-module.exports = Calendar;
+export { mod_Calendar as Calendar };

@@ -1,3 +1,5 @@
+var mod_Translate = Translate;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -132,7 +133,13 @@ function Translate(options) {
 }
 
 /**
- * Exports Translate object
- * @type Translate
+ * Translate API
+ *
+ * @classdesc Lets you translate text from one language to another
+ * @namespace translate
+ * @version  v2
+ * @variation v2
+ * @this Translate
+ * @param {object=} options Options for Translate
  */
-module.exports = Translate;
+export { mod_Translate as Translate };

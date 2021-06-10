@@ -1,3 +1,5 @@
+var mod_Qpxexpress = Qpxexpress;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -66,7 +67,13 @@ function Qpxexpress(options) {
 }
 
 /**
- * Exports Qpxexpress object
- * @type Qpxexpress
+ * QPX Express API
+ *
+ * @classdesc Lets you find the least expensive flights between an origin and a destination.
+ * @namespace qpxExpress
+ * @version  v1
+ * @variation v1
+ * @this Qpxexpress
+ * @param {object=} options Options for Qpxexpress
  */
-module.exports = Qpxexpress;
+export { mod_Qpxexpress as Qpxexpress };

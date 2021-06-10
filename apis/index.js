@@ -1,3 +1,4 @@
+import ext_path_path from "path";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -14,8 +15,6 @@
  * limitations under the License.
  */
 'use strict';
-
-var path = require('path');
 
 /**
  * Return a Function that requires an API from the disk
@@ -37,7 +36,7 @@ function requireAPI(filename) {
       throw new Error('Argument error: Accepts only string or object');
     }
     try {
-      var Endpoint = require(__dirname + '/' + filename + '/' + path.basename(version));
+      var Endpoint = require(__dirname + '/' + filename + '/' + ext_path_path.basename(version));
       var ep = new Endpoint(options);
       ep.google = this; // for drive.google.transporter
       return Object.freeze(ep); // create new & freeze
@@ -45,7 +44,7 @@ function requireAPI(filename) {
       console.log(e);
       throw new Error('Error: Version \"' + version + '\" not found.');
     }
-  }
+  };
 }
 /**
  * APIs to be exported
@@ -119,14 +118,17 @@ var APIs = {
   'youtubeAnalytics': requireAPI('youtubeAnalytics')
 };
 
+var mod_APIs;
+
 /**
  * Exports the APIs
  * @type {Object}
  */
-module.exports = APIs;
+mod_APIs = APIs;
 
 /**
  * @callback callback
  * @param {Error} err Error object if an error occurred.
  * @param {object} data Response data object.
  */
+export { mod_APIs as APIs };

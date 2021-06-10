@@ -1,3 +1,6 @@
+import ext_assert_assert from "assert";
+import { google as googleapis } from "../lib/googleapis.js";
+import ext_nock_nock from "nock";
 /**
  * Copyright 2013 Google Inc. All Rights Reserved.
  *
@@ -16,11 +19,7 @@
 
 'use strict';
 
-var assert = require('assert');
-var googleapis = require('../lib/googleapis.js');
-var nock = require('nock');
-
-nock.disableNetConnect();
+ext_nock_nock.disableNetConnect();
 
 describe('Compute auth client', function() {
 
@@ -36,14 +35,14 @@ describe('Compute auth client', function() {
       }
     };
     compute.authorize(function() {
-      assert.equal('initial-access-token', compute.credentials.access_token);
-      assert.equal('compute-placeholder', compute.credentials.refresh_token);
+      ext_assert_assert.equal('initial-access-token', compute.credentials.access_token);
+      ext_assert_assert.equal('compute-placeholder', compute.credentials.refresh_token);
       done();
     });
   });
 
   it('should refresh if access token has expired', function(done) {
-    var scope = nock('http://metadata')
+    var scope = ext_nock_nock('http://metadata')
         .get('/computeMetadata/v1beta1/instance/service-accounts/default/token')
         .reply(200, { access_token: 'abc123', expires_in: 10000 });
     var compute = new googleapis.auth.Compute();
@@ -53,14 +52,14 @@ describe('Compute auth client', function() {
       expiry_date: (new Date()).getTime() - 2000
     };
     compute.request({}, function() {
-      assert.equal(compute.credentials.access_token, 'abc123');
+      ext_assert_assert.equal(compute.credentials.access_token, 'abc123');
       scope.done();
       done();
     });
   });
 
   it('should not refresh if access token has expired', function(done) {
-    var scope = nock('http://metadata')
+    var scope = ext_nock_nock('http://metadata')
         .get('/computeMetadata/v1beta1/instance/service-accounts/default/token')
         .reply(200, { access_token: 'abc123', expires_in: 10000 });
     var compute = new googleapis.auth.Compute();
@@ -69,9 +68,9 @@ describe('Compute auth client', function() {
       refresh_token: 'compute-placeholder'
     };
     compute.request({}, function() {
-      assert.equal(compute.credentials.access_token, 'initial-access-token');
-      assert.equal(false, scope.isDone());
-      nock.cleanAll();
+      ext_assert_assert.equal(compute.credentials.access_token, 'initial-access-token');
+      ext_assert_assert.equal(false, scope.isDone());
+      ext_nock_nock.cleanAll();
       done();
     });
   });
