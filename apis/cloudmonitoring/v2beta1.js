@@ -1,3 +1,5 @@
+var mod_Cloudmonitoring = Cloudmonitoring;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -152,7 +153,13 @@ function Cloudmonitoring(options) {
 }
 
 /**
- * Exports Cloudmonitoring object
- * @type Cloudmonitoring
+ * Cloud Monitoring API
+ *
+ * @classdesc API for accessing Google Cloud and API monitoring data.
+ * @namespace cloudmonitoring
+ * @version  v2beta1
+ * @variation v2beta1
+ * @this Cloudmonitoring
+ * @param {object=} options Options for Cloudmonitoring
  */
-module.exports = Cloudmonitoring;
+export { mod_Cloudmonitoring as Cloudmonitoring };

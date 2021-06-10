@@ -1,3 +1,5 @@
+var mod_Drive = Drive;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -168,7 +169,13 @@ function Drive(options) {
 }
 
 /**
- * Exports Drive object
- * @type Drive
+ * Drive API
+ *
+ * @classdesc The API to interact with Drive.
+ * @namespace drive
+ * @version  v1
+ * @variation v1
+ * @this Drive
+ * @param {object=} options Options for Drive
  */
-module.exports = Drive;
+export { mod_Drive as Drive };

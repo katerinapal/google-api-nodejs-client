@@ -1,3 +1,5 @@
+import ext_assert_assert from "assert";
+import { google as googleapis_google } from "../lib/googleapis.js";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,8 +18,6 @@
 
 'use strict';
 
-var assert = require('assert');
-var googleapis = require('../lib/googleapis.js');
 var google, drive, authClient, OAuth2;
 
 describe('API key', function() {
@@ -25,7 +25,7 @@ describe('API key', function() {
   function noop() {}
 
   beforeEach(function() {
-    google = new googleapis.GoogleApis();
+    google = new googleapis_google.GoogleApis();
     OAuth2 = google.auth.OAuth2;
     authClient = new OAuth2('CLIENT_ID', 'CLIENT_SECRET', 'REDIRECT_URL');
     authClient.setCredentials({ access_token: 'abc123' });
@@ -37,7 +37,7 @@ describe('API key', function() {
       fileId: '123',
       auth: 'APIKEY'
     }, noop);
-    assert.equal(req.uri.query, 'key=APIKEY');
+    ext_assert_assert.equal(req.uri.query, 'key=APIKEY');
   });
 
   it('should properly escape params E.g. API KEY to API%20KEY', function() {
@@ -45,7 +45,7 @@ describe('API key', function() {
       fileId: '123',
       auth: 'API KEY'
     }, noop);
-    assert.equal(req.uri.query, 'key=API%20KEY');
+    ext_assert_assert.equal(req.uri.query, 'key=API%20KEY');
   });
 
   it('should use key param over auth apikey param if both provided and', function() {
@@ -54,11 +54,11 @@ describe('API key', function() {
       auth: 'API KEY',
       key: 'abc123'
     }, noop);
-    assert.equal(req.uri.query, 'key=abc123');
+    ext_assert_assert.equal(req.uri.query, 'key=abc123');
   });
 
   it('should set API key parameter if it is presented', function() {
     var req = google.urlshortener('v1').url.list({ auth: 'YOUR API KEY' }, noop);
-    assert.equal(req.uri.href.indexOf('key=YOUR%20API%20KEY') > 0, true);
+    ext_assert_assert.equal(req.uri.href.indexOf('key=YOUR%20API%20KEY') > 0, true);
   });
 });

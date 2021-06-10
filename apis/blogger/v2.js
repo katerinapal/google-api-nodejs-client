@@ -1,3 +1,5 @@
+var mod_Blogger = Blogger;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -324,7 +325,13 @@ function Blogger(options) {
 }
 
 /**
- * Exports Blogger object
- * @type Blogger
+ * Blogger API
+ *
+ * @classdesc API for access to the data within Blogger.
+ * @namespace blogger
+ * @version  v2
+ * @variation v2
+ * @this Blogger
+ * @param {object=} options Options for Blogger
  */
-module.exports = Blogger;
+export { mod_Blogger as Blogger };

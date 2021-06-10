@@ -1,3 +1,5 @@
+var mod_Dns = Dns;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -323,7 +324,13 @@ function Dns(options) {
 }
 
 /**
- * Exports Dns object
- * @type Dns
+ * Google Cloud DNS API
+ *
+ * @classdesc The Google Cloud DNS API provides services for configuring and serving authoritative DNS records.
+ * @namespace dns
+ * @version  v1beta1
+ * @variation v1beta1
+ * @this Dns
+ * @param {object=} options Options for Dns
  */
-module.exports = Dns;
+export { mod_Dns as Dns };

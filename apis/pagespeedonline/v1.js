@@ -1,3 +1,5 @@
+var mod_Pagespeedonline = Pagespeedonline;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -72,7 +73,13 @@ function Pagespeedonline(options) {
 }
 
 /**
- * Exports Pagespeedonline object
- * @type Pagespeedonline
+ * PageSpeed Insights API
+ *
+ * @classdesc Lets you analyze the performance of a web page and get tailored suggestions to make that page faster.
+ * @namespace pagespeedonline
+ * @version  v1
+ * @variation v1
+ * @this Pagespeedonline
+ * @param {object=} options Options for Pagespeedonline
  */
-module.exports = Pagespeedonline;
+export { mod_Pagespeedonline as Pagespeedonline };

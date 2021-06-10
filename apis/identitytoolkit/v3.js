@@ -1,3 +1,5 @@
+var mod_Identitytoolkit = Identitytoolkit;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -325,7 +326,13 @@ function Identitytoolkit(options) {
 }
 
 /**
- * Exports Identitytoolkit object
- * @type Identitytoolkit
+ * Google Identity Toolkit API
+ *
+ * @classdesc Help the third party sites to implement federated login.
+ * @namespace identitytoolkit
+ * @version  v3
+ * @variation v3
+ * @this Identitytoolkit
+ * @param {object=} options Options for Identitytoolkit
  */
-module.exports = Identitytoolkit;
+export { mod_Identitytoolkit as Identitytoolkit };

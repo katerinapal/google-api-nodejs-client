@@ -1,3 +1,5 @@
+var mod_Doubleclicksearch = Doubleclicksearch;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -336,7 +337,13 @@ function Doubleclicksearch(options) {
 }
 
 /**
- * Exports Doubleclicksearch object
- * @type Doubleclicksearch
+ * DoubleClick Search API
+ *
+ * @classdesc Report and modify your advertising data in DoubleClick Search (for example, campaigns, ad groups, keywords, and conversions).
+ * @namespace doubleclicksearch
+ * @version  v2
+ * @variation v2
+ * @this Doubleclicksearch
+ * @param {object=} options Options for Doubleclicksearch
  */
-module.exports = Doubleclicksearch;
+export { mod_Doubleclicksearch as Doubleclicksearch };

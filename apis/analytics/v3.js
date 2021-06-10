@@ -1,3 +1,5 @@
+var mod_Analytics = Analytics;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -2333,7 +2334,13 @@ function Analytics(options) {
 }
 
 /**
- * Exports Analytics object
- * @type Analytics
+ * Google Analytics API
+ *
+ * @classdesc View and manage your Google Analytics data
+ * @namespace analytics
+ * @version  v3
+ * @variation v3
+ * @this Analytics
+ * @param {object=} options Options for Analytics
  */
-module.exports = Analytics;
+export { mod_Analytics as Analytics };

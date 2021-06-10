@@ -1,3 +1,5 @@
+var mod_Admin = Admin;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -73,7 +74,13 @@ function Admin(options) {
 }
 
 /**
- * Exports Admin object
- * @type Admin
+ * Email Migration API v2
+ *
+ * @classdesc Email Migration API lets you migrate emails of users to Google backends.
+ * @namespace admin
+ * @version  email_migration_v2
+ * @variation email_migration_v2
+ * @this Admin
+ * @param {object=} options Options for Admin
  */
-module.exports = Admin;
+export { mod_Admin as Admin };

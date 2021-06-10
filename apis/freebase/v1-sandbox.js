@@ -1,3 +1,5 @@
+var mod_Freebase = Freebase;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -115,7 +116,13 @@ function Freebase(options) {
 }
 
 /**
- * Exports Freebase object
- * @type Freebase
+ * Freebase Search
+ *
+ * @classdesc Find Freebase entities using textual queries and other constraints.
+ * @namespace freebase
+ * @version  v1-sandbox
+ * @variation v1-sandbox
+ * @this Freebase
+ * @param {object=} options Options for Freebase
  */
-module.exports = Freebase;
+export { mod_Freebase as Freebase };

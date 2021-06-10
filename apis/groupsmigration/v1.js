@@ -1,3 +1,5 @@
+var mod_Groupsmigration = Groupsmigration;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -72,7 +73,13 @@ function Groupsmigration(options) {
 }
 
 /**
- * Exports Groupsmigration object
- * @type Groupsmigration
+ * Groups Migration API
+ *
+ * @classdesc Groups Migration Api.
+ * @namespace groupsmigration
+ * @version  v1
+ * @variation v1
+ * @this Groupsmigration
+ * @param {object=} options Options for Groupsmigration
  */
-module.exports = Groupsmigration;
+export { mod_Groupsmigration as Groupsmigration };

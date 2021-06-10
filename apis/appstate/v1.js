@@ -1,3 +1,5 @@
+var mod_Appstate = Appstate;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -181,7 +182,13 @@ function Appstate(options) {
 }
 
 /**
- * Exports Appstate object
- * @type Appstate
+ * Google App State API
+ *
+ * @classdesc The Google App State API.
+ * @namespace appstate
+ * @version  v1
+ * @variation v1
+ * @this Appstate
+ * @param {object=} options Options for Appstate
  */
-module.exports = Appstate;
+export { mod_Appstate as Appstate };

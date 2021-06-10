@@ -1,3 +1,5 @@
+var mod_Replicapool = Replicapool;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -354,7 +355,13 @@ function Replicapool(options) {
 }
 
 /**
- * Exports Replicapool object
- * @type Replicapool
+ * Replica Pool API
+ *
+ * @classdesc The Replica Pool API allows users to declaratively provision and manage groups of Google Compute Engine instances based on a common template.
+ * @namespace replicapool
+ * @version  v1beta1
+ * @variation v1beta1
+ * @this Replicapool
+ * @param {object=} options Options for Replicapool
  */
-module.exports = Replicapool;
+export { mod_Replicapool as Replicapool };

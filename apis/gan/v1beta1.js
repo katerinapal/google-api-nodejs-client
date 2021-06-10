@@ -1,3 +1,5 @@
+var mod_Gan = Gan;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -410,7 +411,13 @@ function Gan(options) {
 }
 
 /**
- * Exports Gan object
- * @type Gan
+ * Google Affiliate Network API
+ *
+ * @classdesc Lets you have programmatic access to your Google Affiliate Network data.
+ * @namespace gan
+ * @version  v1beta1
+ * @variation v1beta1
+ * @this Gan
+ * @param {object=} options Options for Gan
  */
-module.exports = Gan;
+export { mod_Gan as Gan };

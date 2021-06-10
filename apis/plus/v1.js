@@ -1,3 +1,5 @@
+var mod_Plus = Plus;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -414,7 +415,13 @@ function Plus(options) {
 }
 
 /**
- * Exports Plus object
- * @type Plus
+ * Google+ API
+ *
+ * @classdesc The Google+ API enables developers to build on top of the Google+ platform.
+ * @namespace plus
+ * @version  v1
+ * @variation v1
+ * @this Plus
+ * @param {object=} options Options for Plus
  */
-module.exports = Plus;
+export { mod_Plus as Plus };

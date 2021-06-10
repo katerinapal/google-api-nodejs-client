@@ -1,3 +1,5 @@
+var mod_Youtube = Youtube;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -1500,7 +1501,13 @@ function Youtube(options) {
 }
 
 /**
- * Exports Youtube object
- * @type Youtube
+ * YouTube Data API
+ *
+ * @classdesc Programmatic access to YouTube features.
+ * @namespace youtube
+ * @version  v3
+ * @variation v3
+ * @this Youtube
+ * @param {object=} options Options for Youtube
  */
-module.exports = Youtube;
+export { mod_Youtube as Youtube };

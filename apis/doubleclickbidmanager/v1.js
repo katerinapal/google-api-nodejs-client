@@ -1,3 +1,5 @@
+var mod_Doubleclickbidmanager = Doubleclickbidmanager;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -264,7 +265,13 @@ function Doubleclickbidmanager(options) {
 }
 
 /**
- * Exports Doubleclickbidmanager object
- * @type Doubleclickbidmanager
+ * DoubleClick Bid Manager API
+ *
+ * @classdesc API for viewing and managing your reports in DoubleClick Bid Manager.
+ * @namespace doubleclickbidmanager
+ * @version  v1
+ * @variation v1
+ * @this Doubleclickbidmanager
+ * @param {object=} options Options for Doubleclickbidmanager
  */
-module.exports = Doubleclickbidmanager;
+export { mod_Doubleclickbidmanager as Doubleclickbidmanager };

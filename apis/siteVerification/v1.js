@@ -1,3 +1,5 @@
+var mod_Siteverification = Siteverification;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -233,7 +234,13 @@ function Siteverification(options) {
 }
 
 /**
- * Exports Siteverification object
- * @type Siteverification
+ * Google Site Verification API
+ *
+ * @classdesc Lets you programatically verify ownership of websites or domains with Google.
+ * @namespace siteVerification
+ * @version  v1
+ * @variation v1
+ * @this Siteverification
+ * @param {object=} options Options for Siteverification
  */
-module.exports = Siteverification;
+export { mod_Siteverification as Siteverification };

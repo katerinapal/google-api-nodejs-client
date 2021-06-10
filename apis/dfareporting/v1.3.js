@@ -1,3 +1,5 @@
+var mod_Dfareporting = Dfareporting;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -505,7 +506,13 @@ function Dfareporting(options) {
 }
 
 /**
- * Exports Dfareporting object
- * @type Dfareporting
+ * DFA Reporting API
+ *
+ * @classdesc Lets you create, run and download reports.
+ * @namespace dfareporting
+ * @version  v1.3
+ * @variation v1.3
+ * @this Dfareporting
+ * @param {object=} options Options for Dfareporting
  */
-module.exports = Dfareporting;
+export { mod_Dfareporting as Dfareporting };

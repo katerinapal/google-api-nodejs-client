@@ -1,3 +1,5 @@
+var mod_Bigquery = Bigquery;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -666,7 +667,13 @@ function Bigquery(options) {
 }
 
 /**
- * Exports Bigquery object
- * @type Bigquery
+ * BigQuery API
+ *
+ * @classdesc A data platform for customers to create, manage, share and query data.
+ * @namespace bigquery
+ * @version  v2
+ * @variation v2
+ * @this Bigquery
+ * @param {object=} options Options for Bigquery
  */
-module.exports = Bigquery;
+export { mod_Bigquery as Bigquery };

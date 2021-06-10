@@ -1,3 +1,5 @@
+var mod_Spectrum = Spectrum;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -196,7 +197,13 @@ function Spectrum(options) {
 }
 
 /**
- * Exports Spectrum object
- * @type Spectrum
+ * Google Spectrum Database API
+ *
+ * @classdesc API for spectrum-management functions.
+ * @namespace spectrum
+ * @version  v1explorer
+ * @variation v1explorer
+ * @this Spectrum
+ * @param {object=} options Options for Spectrum
  */
-module.exports = Spectrum;
+export { mod_Spectrum as Spectrum };

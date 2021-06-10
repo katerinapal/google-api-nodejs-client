@@ -1,3 +1,5 @@
+var mod_Compute = Compute;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -4003,7 +4004,13 @@ function Compute(options) {
 }
 
 /**
- * Exports Compute object
- * @type Compute
+ * Compute Engine API
+ *
+ * @classdesc API for the Google Compute Engine service.
+ * @namespace compute
+ * @version  v1
+ * @variation v1
+ * @this Compute
+ * @param {object=} options Options for Compute
  */
-module.exports = Compute;
+export { mod_Compute as Compute };

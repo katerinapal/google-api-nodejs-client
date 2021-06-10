@@ -1,55 +1,136 @@
 {
-  "name": "googleapis",
-  "version": "1.0.4",
-  "author": "Google Inc.",
-  "description": "Google APIs Client Library for Node.js",
-  "contributors": [
-    {
-      "name": "Burcu Dogan",
-      "email": "jbd@google.com"
+    "name": "googleapis",
+    "version": "1.0.4",
+    "author": "Google Inc.",
+    "description": "Google APIs Client Library for Node.js",
+    "contributors": [
+        {
+            "name": "Burcu Dogan",
+            "email": "jbd@google.com"
+        },
+        {
+            "name": "Ryan Seys",
+            "email": "ryanseys@google.com"
+        },
+        {
+            "name": "Monsur Hossain",
+            "email": "monsur@google.com"
+        }
+    ],
+    "main": "./lib/googleapis",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/google/google-api-nodejs-client.git"
     },
-    {
-      "name": "Ryan Seys",
-      "email": "ryanseys@google.com"
+    "keywords": [
+        "google",
+        "api",
+        "google apis",
+        "client",
+        "client library"
+    ],
+    "dependencies": {
+        "async": "0.2.10",
+        "gapitoken": "0.1.2",
+        "multipart-stream": "1.0.0",
+        "request": "2.37.0"
     },
-    {
-      "name": "Monsur Hossain",
-      "email": "monsur@google.com"
-    }
-  ],
-  "main": "./lib/googleapis",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/google/google-api-nodejs-client.git"
-  },
-  "keywords": [
-    "google",
-    "api",
-    "google apis",
-    "client",
-    "client library"
-  ],
-  "dependencies": {
-    "async": "0.2.10",
-    "gapitoken": "0.1.2",
-    "multipart-stream": "1.0.0",
-    "request": "2.37.0"
-  },
-  "devDependencies": {
-    "js-beautify": "1.5.1",
-    "jsdoc": "3.3.0-alpha9",
-    "mkdirp": "0.5.0",
-    "mocha": "1.8.1",
-    "nock": "0.42.1",
-    "rimraf": "2.2.8",
-    "swig": "1.3.2",
-    "url": "0.7.9"
-  },
-  "scripts": {
-    "test": "mocha --reporter spec --timeout 4000",
-    "generate-apis": "node scripts/generate",
-    "generate-docs": "jsdoc -c jsdoc-conf.json ./README.md",
-    "prepare": "npm run generate-apis && npm test && npm version patch"
-  },
-  "license": "Apache 2"
+    "devDependencies": {
+        "js-beautify": "1.5.1",
+        "jsdoc": "3.3.0-alpha9",
+        "mkdirp": "0.5.0",
+        "mocha": "1.8.1",
+        "nock": "0.42.1",
+        "rimraf": "2.2.8",
+        "swig": "1.3.2",
+        "url": "0.7.9",
+        "babel-cli": "latest",
+        "babel-core": "latest",
+        "babel-plugin-add-module-exports": "latest",
+        "babel-plugin-transform-es2015-modules-commonjs": "latest",
+        "babel-polyfill": "latest",
+        "babel-plugin-transform-object-rest-spread": "latest",
+        "babel-preset-env": "latest"
+    },
+    "scripts": {
+        "test": "mocha --reporter spec --timeout 4000",
+        "generate-apis": "node scripts/generate",
+        "generate-docs": "jsdoc -c jsdoc-conf.json ./README.md",
+        "prepare": "npm run generate-apis && npm test && npm version patch",
+        "compile-apiscoordinate": "babel apis\\coordinate --out-dir apis\\coordinate --require babel-polyfill --presets env",
+        "compile-apisqpxExpress": "babel apis\\qpxExpress --out-dir apis\\qpxExpress --require babel-polyfill --presets env",
+        "compile-apisfusiontables": "babel apis\\fusiontables --out-dir apis\\fusiontables --require babel-polyfill --presets env",
+        "compile-apisgames": "babel apis\\games --out-dir apis\\games --require babel-polyfill --presets env",
+        "compile-apisyoutube": "babel apis\\youtube --out-dir apis\\youtube --require babel-polyfill --presets env",
+        "compile-apisspectrum": "babel apis\\spectrum --out-dir apis\\spectrum --require babel-polyfill --presets env",
+        "compile-apisadexchangebuyer": "babel apis\\adexchangebuyer --out-dir apis\\adexchangebuyer --require babel-polyfill --presets env",
+        "compile-apiscivicinfo": "babel apis\\civicinfo --out-dir apis\\civicinfo --require babel-polyfill --presets env",
+        "compile-apisprediction": "babel apis\\prediction --out-dir apis\\prediction --require babel-polyfill --presets env",
+        "compile-apisreseller": "babel apis\\reseller --out-dir apis\\reseller --require babel-polyfill --presets env",
+        "compile-apissqladmin": "babel apis\\sqladmin --out-dir apis\\sqladmin --require babel-polyfill --presets env",
+        "compile-apisfreebase": "babel apis\\freebase --out-dir apis\\freebase --require babel-polyfill --presets env",
+        "compile-libauth": "babel lib\\auth --out-dir lib\\auth --require babel-polyfill --presets env",
+        "compile-apisandroidpublisher": "babel apis\\androidpublisher --out-dir apis\\androidpublisher --require babel-polyfill --presets env",
+        "compile-apisurlshortener": "babel apis\\urlshortener --out-dir apis\\urlshortener --require babel-polyfill --presets env",
+        "compile-apisgmail": "babel apis\\gmail --out-dir apis\\gmail --require babel-polyfill --presets env",
+        "compile-apisblogger": "babel apis\\blogger --out-dir apis\\blogger --require babel-polyfill --presets env",
+        "compile-apisyoutubeAnalytics": "babel apis\\youtubeAnalytics --out-dir apis\\youtubeAnalytics --require babel-polyfill --presets env",
+        "compile-apisadsense": "babel apis\\adsense --out-dir apis\\adsense --require babel-polyfill --presets env",
+        "compile-apiscompute": "babel apis\\compute --out-dir apis\\compute --require babel-polyfill --presets env",
+        "compile-lib": "babel lib --out-dir lib --require babel-polyfill --presets env",
+        "compile-apisoauth2": "babel apis\\oauth2 --out-dir apis\\oauth2 --require babel-polyfill --presets env",
+        "compile-apistaskqueue": "babel apis\\taskqueue --out-dir apis\\taskqueue --require babel-polyfill --presets env",
+        "compile-apisdns": "babel apis\\dns --out-dir apis\\dns --require babel-polyfill --presets env",
+        "compile-apisdoubleclickbidmanager": "babel apis\\doubleclickbidmanager --out-dir apis\\doubleclickbidmanager --require babel-polyfill --presets env",
+        "compile-apis": "babel apis --out-dir apis --require babel-polyfill --presets env",
+        "compile-apisreplicapool": "babel apis\\replicapool --out-dir apis\\replicapool --require babel-polyfill --presets env",
+        "compile-test": "babel test --out-dir test --require babel-polyfill --presets env",
+        "compile-apisdoubleclicksearch": "babel apis\\doubleclicksearch --out-dir apis\\doubleclicksearch --require babel-polyfill --presets env",
+        "compile-apisidentitytoolkit": "babel apis\\identitytoolkit --out-dir apis\\identitytoolkit --require babel-polyfill --presets env",
+        "compile-apisdrive": "babel apis\\drive --out-dir apis\\drive --require babel-polyfill --presets env",
+        "compile-apisstorage": "babel apis\\storage --out-dir apis\\storage --require babel-polyfill --presets env",
+        "compile-apisdatastore": "babel apis\\datastore --out-dir apis\\datastore --require babel-polyfill --presets env",
+        "compile-apisplus": "babel apis\\plus --out-dir apis\\plus --require babel-polyfill --presets env",
+        "compile-apisanalytics": "babel apis\\analytics --out-dir apis\\analytics --require babel-polyfill --presets env",
+        "compile-apiswebfonts": "babel apis\\webfonts --out-dir apis\\webfonts --require babel-polyfill --presets env",
+        "compile-apiscalendar": "babel apis\\calendar --out-dir apis\\calendar --require babel-polyfill --presets env",
+        "compile-apispagespeedonline": "babel apis\\pagespeedonline --out-dir apis\\pagespeedonline --require babel-polyfill --presets env",
+        "compile-apismapsengine": "babel apis\\mapsengine --out-dir apis\\mapsengine --require babel-polyfill --presets env",
+        "compile-apissiteVerification": "babel apis\\siteVerification --out-dir apis\\siteVerification --require babel-polyfill --presets env",
+        "compile-apisadmin": "babel apis\\admin --out-dir apis\\admin --require babel-polyfill --presets env",
+        "compile-apisgamesManagement": "babel apis\\gamesManagement --out-dir apis\\gamesManagement --require babel-polyfill --presets env",
+        "compile-apiscustomsearch": "babel apis\\customsearch --out-dir apis\\customsearch --require babel-polyfill --presets env",
+        "compile-apisdfareporting": "babel apis\\dfareporting --out-dir apis\\dfareporting --require babel-polyfill --presets env",
+        "compile-apismanager": "babel apis\\manager --out-dir apis\\manager --require babel-polyfill --presets env",
+        "compile-apisbigquery": "babel apis\\bigquery --out-dir apis\\bigquery --require babel-polyfill --presets env",
+        "compile-apisadsensehost": "babel apis\\adsensehost --out-dir apis\\adsensehost --require babel-polyfill --presets env",
+        "compile-apisadexchangeseller": "babel apis\\adexchangeseller --out-dir apis\\adexchangeseller --require babel-polyfill --presets env",
+        "compile-apisgan": "babel apis\\gan --out-dir apis\\gan --require babel-polyfill --presets env",
+        "compile-apistranslate": "babel apis\\translate --out-dir apis\\translate --require babel-polyfill --presets env",
+        "compile-apisgenomics": "babel apis\\genomics --out-dir apis\\genomics --require babel-polyfill --presets env",
+        "compile-apisgroupssettings": "babel apis\\groupssettings --out-dir apis\\groupssettings --require babel-polyfill --presets env",
+        "compile-apiscontent": "babel apis\\content --out-dir apis\\content --require babel-polyfill --presets env",
+        "compile-apisaudit": "babel apis\\audit --out-dir apis\\audit --require babel-polyfill --presets env",
+        "compile-apisresourceviews": "babel apis\\resourceviews --out-dir apis\\resourceviews --require babel-polyfill --presets env",
+        "compile-apisdiscovery": "babel apis\\discovery --out-dir apis\\discovery --require babel-polyfill --presets env",
+        "compile-apisappstate": "babel apis\\appstate --out-dir apis\\appstate --require babel-polyfill --presets env",
+        "compile-apisbooks": "babel apis\\books --out-dir apis\\books --require babel-polyfill --presets env",
+        "compile-apisgroupsmigration": "babel apis\\groupsmigration --out-dir apis\\groupsmigration --require babel-polyfill --presets env",
+        "compile-apisautoscaler": "babel apis\\autoscaler --out-dir apis\\autoscaler --require babel-polyfill --presets env",
+        "compile-apisdocs": "babel apis\\docs --out-dir apis\\docs --require babel-polyfill --presets env",
+        "compile-apisappsactivity": "babel apis\\appsactivity --out-dir apis\\appsactivity --require babel-polyfill --presets env",
+        "compile-apiscloudmonitoring": "babel apis\\cloudmonitoring --out-dir apis\\cloudmonitoring --require babel-polyfill --presets env",
+        "compile-apismirror": "babel apis\\mirror --out-dir apis\\mirror --require babel-polyfill --presets env",
+        "compile-apisplusDomains": "babel apis\\plusDomains --out-dir apis\\plusDomains --require babel-polyfill --presets env",
+        "compile-apispubsub": "babel apis\\pubsub --out-dir apis\\pubsub --require babel-polyfill --presets env",
+        "compile-apisorkut": "babel apis\\orkut --out-dir apis\\orkut --require babel-polyfill --presets env",
+        "compile-apislicensing": "babel apis\\licensing --out-dir apis\\licensing --require babel-polyfill --presets env",
+        "compile-apistasks": "babel apis\\tasks --out-dir apis\\tasks --require babel-polyfill --presets env",
+        "compile-1_script": "npm run compile-apiscoordinate && npm run compile-apisqpxExpress && npm run compile-apisfusiontables && npm run compile-apisgames && npm run compile-apisyoutube && npm run compile-apisspectrum && npm run compile-apisadexchangebuyer && npm run compile-apiscivicinfo && npm run compile-apisprediction && npm run compile-apisreseller && npm run compile-apissqladmin && npm run compile-apisfreebase && npm run compile-libauth && npm run compile-apisandroidpublisher && npm run compile-apisurlshortener && npm run compile-apisgmail && npm run compile-apisblogger && npm run compile-apisyoutubeAnalytics && npm run compile-apisadsense && npm run compile-apiscompute",
+        "compile-2_script": "npm run compile-lib && npm run compile-apisoauth2 && npm run compile-apistaskqueue && npm run compile-apisdns && npm run compile-apisdoubleclickbidmanager && npm run compile-apis && npm run compile-apisreplicapool && npm run compile-test && npm run compile-apisdoubleclicksearch && npm run compile-apisidentitytoolkit && npm run compile-apisdrive && npm run compile-apisstorage && npm run compile-apisdatastore && npm run compile-apisplus && npm run compile-apisanalytics && npm run compile-apiswebfonts && npm run compile-apiscalendar && npm run compile-apispagespeedonline && npm run compile-apismapsengine && npm run compile-apissiteVerification",
+        "compile-3_script": "npm run compile-apisadmin && npm run compile-apisgamesManagement && npm run compile-apiscustomsearch && npm run compile-apisdfareporting && npm run compile-apismanager && npm run compile-apisbigquery && npm run compile-apisadsensehost && npm run compile-apisadexchangeseller && npm run compile-apisgan && npm run compile-apistranslate && npm run compile-apisgenomics && npm run compile-apisgroupssettings && npm run compile-apiscontent && npm run compile-apisaudit && npm run compile-apisresourceviews && npm run compile-apisdiscovery && npm run compile-apisappstate && npm run compile-apisbooks && npm run compile-apisgroupsmigration && npm run compile-apisautoscaler",
+        "compile-4_script": "npm run compile-apisdocs && npm run compile-apisappsactivity && npm run compile-apiscloudmonitoring && npm run compile-apismirror && npm run compile-apisplusDomains && npm run compile-apispubsub && npm run compile-apisorkut && npm run compile-apislicensing && npm run compile-apistasks",
+        "compile": "npm run compile-1_script && npm run compile-2_script && npm run compile-3_script && npm run compile-4_script"
+    },
+    "license": "Apache 2"
 }

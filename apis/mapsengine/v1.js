@@ -1,3 +1,5 @@
+var mod_Mapsengine = Mapsengine;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -1590,7 +1591,13 @@ function Mapsengine(options) {
 }
 
 /**
- * Exports Mapsengine object
- * @type Mapsengine
+ * Google Maps Engine API
+ *
+ * @classdesc The Google Maps Engine API allows developers to store and query geospatial vector and raster data.
+ * @namespace mapsengine
+ * @version  v1
+ * @variation v1
+ * @this Mapsengine
+ * @param {object=} options Options for Mapsengine
  */
-module.exports = Mapsengine;
+export { mod_Mapsengine as Mapsengine };

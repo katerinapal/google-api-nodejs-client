@@ -1,3 +1,5 @@
+var mod_Taskqueue = Taskqueue;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -194,7 +195,13 @@ function Taskqueue(options) {
 }
 
 /**
- * Exports Taskqueue object
- * @type Taskqueue
+ * TaskQueue API
+ *
+ * @classdesc Lets you access a Google App Engine Pull Task Queue over REST.
+ * @namespace taskqueue
+ * @version  v1beta1
+ * @variation v1beta1
+ * @this Taskqueue
+ * @param {object=} options Options for Taskqueue
  */
-module.exports = Taskqueue;
+export { mod_Taskqueue as Taskqueue };

@@ -1,3 +1,5 @@
+var mod_Audit = Audit;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -78,7 +79,13 @@ function Audit(options) {
 }
 
 /**
- * Exports Audit object
- * @type Audit
+ * Enterprise Audit API
+ *
+ * @classdesc Lets you access user activities in your enterprise made through various applications.
+ * @namespace audit
+ * @version  v1
+ * @variation v1
+ * @this Audit
+ * @param {object=} options Options for Audit
  */
-module.exports = Audit;
+export { mod_Audit as Audit };

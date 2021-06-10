@@ -1,3 +1,5 @@
+var mod_Sqladmin = Sqladmin;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -498,7 +499,13 @@ function Sqladmin(options) {
 }
 
 /**
- * Exports Sqladmin object
- * @type Sqladmin
+ * Cloud SQL Administration API
+ *
+ * @classdesc API for Cloud SQL database instance management.
+ * @namespace sqladmin
+ * @version  v1beta1
+ * @variation v1beta1
+ * @this Sqladmin
+ * @param {object=} options Options for Sqladmin
  */
-module.exports = Sqladmin;
+export { mod_Sqladmin as Sqladmin };

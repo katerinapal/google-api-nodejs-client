@@ -1,3 +1,5 @@
+import ext_assert_assert from "assert";
+import { google as googleapis_google } from "../lib/googleapis.js";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,8 +18,6 @@
 
 'use strict';
 
-var assert = require('assert');
-var googleapis = require('../lib/googleapis.js');
 var google, drive, authClient, OAuth2;
 
 describe('Path params', function() {
@@ -25,12 +25,12 @@ describe('Path params', function() {
   function noop() {}
 
   beforeEach(function() {
-    google = new googleapis.GoogleApis();
+    google = new googleapis_google.GoogleApis();
     drive = google.drive('v2');
   });
 
   it('should not throw error if not included and required', function(done) {
-    assert.doesNotThrow(function() {
+    ext_assert_assert.doesNotThrow(function() {
       drive.files.get({}, noop);
       done();
     });
@@ -38,32 +38,32 @@ describe('Path params', function() {
 
   it('should return an err object if not included and required', function(done) {
     var req = drive.files.get({}, function(err, resp) {
-      assert.notEqual(err, null);
+      ext_assert_assert.notEqual(err, null);
       done();
     });
   });
 
   it('should return null response object if not included and required', function(done) {
     var req = drive.files.get({}, function(err, resp) {
-      assert.equal(resp, null);
+      ext_assert_assert.equal(resp, null);
       done();
     });
   });
 
   it('should return null request object if not included and required', function() {
     var req = drive.files.get({}, noop);
-    assert.equal(req, null);
+    ext_assert_assert.equal(req, null);
   });
 
   it('should return null request object if not included and required and no callback', function() {
     var req = drive.files.get({}, noop);
-    assert.equal(req, null);
+    ext_assert_assert.equal(req, null);
   });
 
   it('should not be modifiable directly', function() {
     var drive = google.drive('v2');
     var options = { fileId: '123' };
-    assert.doesNotThrow(
+    ext_assert_assert.doesNotThrow(
       function() {
         // should not modify options object
         drive.files.get(options, noop);
@@ -73,21 +73,21 @@ describe('Path params', function() {
 
   it('should be put in URL of path', function() {
     var req = drive.files.get({ fileId: 'abc123' }, noop);
-    assert.equal(req.uri.path, '/drive/v2/files/abc123');
+    ext_assert_assert.equal(req.uri.path, '/drive/v2/files/abc123');
   });
 
   it('should be put in URL of pathname', function() {
     var req = drive.files.get({ fileId: '123abc' }, noop);
-    assert.equal(req.uri.pathname, '/drive/v2/files/123abc');
+    ext_assert_assert.equal(req.uri.pathname, '/drive/v2/files/123abc');
   });
 
   it('should keep query params null if only path params', function() {
     var req = drive.files.get({ fileId: '123abc' }, noop);
-    assert.equal(req.uri.query, null);
+    ext_assert_assert.equal(req.uri.query, null);
   });
 
   it('should keep query params as is', function() {
     var req = drive.files.get({ fileId: '123abc', hello: 'world' }, noop);
-    assert.equal(req.uri.query, 'hello=world');
+    ext_assert_assert.equal(req.uri.query, 'hello=world');
   });
 });

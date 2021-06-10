@@ -1,3 +1,5 @@
+var mod_Prediction = Prediction;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -213,7 +214,13 @@ function Prediction(options) {
 }
 
 /**
- * Exports Prediction object
- * @type Prediction
+ * Prediction API
+ *
+ * @classdesc Lets you access a cloud hosted machine learning service that makes it easy to build smart apps
+ * @namespace prediction
+ * @version  v1.4
+ * @variation v1.4
+ * @this Prediction
+ * @param {object=} options Options for Prediction
  */
-module.exports = Prediction;
+export { mod_Prediction as Prediction };

@@ -1,3 +1,5 @@
+var mod_Civicinfo = Civicinfo;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -158,7 +159,13 @@ function Civicinfo(options) {
 }
 
 /**
- * Exports Civicinfo object
- * @type Civicinfo
+ * Google Civic Information API
+ *
+ * @classdesc An API for accessing civic information.
+ * @namespace civicinfo
+ * @version  us_v1
+ * @variation us_v1
+ * @this Civicinfo
+ * @param {object=} options Options for Civicinfo
  */
-module.exports = Civicinfo;
+export { mod_Civicinfo as Civicinfo };

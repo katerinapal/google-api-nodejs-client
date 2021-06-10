@@ -1,3 +1,5 @@
+var mod_Genomics = Genomics;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -1033,7 +1034,13 @@ function Genomics(options) {
 }
 
 /**
- * Exports Genomics object
- * @type Genomics
+ * Genomics API
+ *
+ * @classdesc Provides access to Genomics data.
+ * @namespace genomics
+ * @version  v1beta
+ * @variation v1beta
+ * @this Genomics
+ * @param {object=} options Options for Genomics
  */
-module.exports = Genomics;
+export { mod_Genomics as Genomics };

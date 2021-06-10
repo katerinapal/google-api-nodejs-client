@@ -1,3 +1,5 @@
+var mod_Content = Content;
+import { apirequestjs as apirequest } from "../../lib/apirequest";
 /**
  * Copyright 2014 Google Inc. All Rights Reserved.
  *
@@ -16,7 +18,6 @@
 
 'use strict';
 
-var apirequest = require('../../lib/apirequest');
 var createAPIRequest = apirequest.createAPIRequest;
 
 /**
@@ -1044,7 +1045,13 @@ function Content(options) {
 }
 
 /**
- * Exports Content object
- * @type Content
+ * Content API for Shopping
+ *
+ * @classdesc Manage product items, inventory, and Merchant Center accounts for Google Shopping.
+ * @namespace content
+ * @version  v2
+ * @variation v2
+ * @this Content
+ * @param {object=} options Options for Content
  */
-module.exports = Content;
+export { mod_Content as Content };
